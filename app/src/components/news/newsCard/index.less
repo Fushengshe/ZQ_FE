@@ -1,0 +1,64 @@
+@fontSize:1.1em;
+
+.news-title{
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2em;
+  box-sizing: border-box;
+  border-radius: 10px;
+  margin: 10px auto;
+  background: #cccccc;
+  line-height:28px;
+}
+// 这里使用了猫头鹰选择器
+.news-card + .news-card{
+  margin: 0 1%;
+}
+.news-card{
+  display: inline-block;
+  .ant-card-head{
+    padding: 0 5px ;
+    border: none;
+  }
+  .ant-card-body{
+    padding: 10px ;
+    //border: none;
+  }
+  &-content{
+    display: flex;
+    font-size: @fontSize;
+    justify-content: space-between;
+    text-align: left;
+    border-bottom: 1px solid rgba(0,0,0,.2);
+    &-images{
+      flex: 0 0 100px;
+      width: 100px;
+      height: 100px;
+      padding-right: 10px;
+    }
+    &-text{
+      flex: 1;
+      //&:before{
+      //  line-height: 1em;
+      //  content: "  ";
+      //  width: 2em;
+      //  height: 2em;
+      //  background: url("./quote_1.png") no-repeat;
+      //}
+      //&:after{
+      //  line-height: 1em;
+      //  width: 2em;
+      //  height: 2em;
+      //  content: "  ";
+      //  background: url("./quote_2.png") no-repeat;
+      //}
+    }
+  }
+  &-link-item{
+    padding-left: 1em;
+    font-size: @fontSize;
+    line-height: 1.7 * @fontSize;
+    height: 1.7 * @fontSize;
+    background: url("./RedTriangle.png") left no-repeat;
+  }
+}

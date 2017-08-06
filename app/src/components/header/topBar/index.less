@@ -1,0 +1,48 @@
+@topBarHeight: 20px;
+.top-bar {
+  margin: 5px 10px;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+  font-size: 1.2em;
+  align-content: flex-end;
+  .top-bar-connect {
+    // just a hack to make the div downer
+    padding-top: 10px;
+    .connect-logo {
+      display: inline-block;
+      width: 50px;
+      height: @topBarHeight;
+      font-size: 1em;
+      line-height: @topBarHeight;
+      text-align: right;
+      margin-right: 2em;
+    }
+    .wechat-logo {
+      cursor: pointer;
+      background: url("./wechat.gif") no-repeat;
+      &:hover{
+        background: url("./wechat-active.gif") no-repeat;
+      }
+    }
+    .weibo-logo {
+      background: url("./weibo.gif") no-repeat;
+      &:hover{
+        background: url("./weibo-active.gif") no-repeat;
+      }
+    }
+  }
+  .top-bar-users{
+    display: flex;
+    align-items: flex-end;
+    width: 400px;
+    justify-content: space-between;
+    &-entry{
+
+    }
+    &-forum{
+
+    }
+  }
+}
