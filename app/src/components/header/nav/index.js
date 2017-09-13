@@ -37,13 +37,7 @@ class Nav extends Component {
     })
   }
 
-  handleClick = (e) => {
-    // console.dir(e)
-    goto(e.key)
-    this.setState({
-      current: e.key
-    })
-  }
+
 
   render() {
     return (
