@@ -8,7 +8,7 @@ import goto from '../../../util'
 class NavRender extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props.links)
+    //console.log(this.props.links)
   }
   state = {
     current: 'mail'

@@ -19,7 +19,7 @@ const NewsTitle = (props) => {
   )
 }
 
-class NewsCard extends Component {
+class NewsExpCard extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -30,7 +30,7 @@ class NewsCard extends Component {
   }
 
   fetchSiteMov () {
-    fetch('http://www.thmaoqiu.cn/poetry/public/index.php/sitemov',{
+    fetch('http://www.thmaoqiu.cn/poetry/public/index.php/newsexp',{
       method : 'GET',
       headers : {
 
@@ -58,10 +58,10 @@ class NewsCard extends Component {
   render () {
 
     return (
-      <Card className="news-card" title='本站动态' style={{width: '45%'}}>
+      <Card className="news-card" title='新闻速递' style={{width: '45%'}}>
 
 
-          <NewsCardRender links={this.state.links} first={this.state.first} />
+          <NewsCardRender links={this.state.links} first={this.state.first}/>
 
       </Card>
 
@@ -69,4 +69,4 @@ class NewsCard extends Component {
   }
 }
 
-export default NewsCard
+export default NewsExpCard
