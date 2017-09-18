@@ -8,18 +8,22 @@ const ERR_OK = 0
 class NewsContent extends Component {
   constructor (props) {
     super(props)
-    this.state = {}
-    const {params} = this.props
+    this.state = {
+      fetchData : false,
+      links : []
+    }
+
     this.onHandleClick = this.onHandleClick.bind(this)
     this.fetchArticleList = this.fetchArticleList.bind(this)
   }
 
   componentDidMount() {
     this.fetchArticleList()
+    //console.log(this.props.params.param)
   }
 
   fetchArticleList() {
-    fetch('http://www.thmaoqiu.cn/poetry/public/index.php/showtitle?list_id=3',{
+    fetch('http://www.thmaoqiu.cn/poetry/public/index.php/showtitle?list_id='+this.props.params.param,{
       method :'GET',
       headers : {
 
@@ -31,7 +35,7 @@ class NewsContent extends Component {
           fetchData : true,
           links : json.title
         })
-        console.log(this.state.links)
+        //console.log(this.state.links)
       }
     })
   }
@@ -44,22 +48,11 @@ class NewsContent extends Component {
   }
 
   render () {
-    const links = [
-      '甘肃政法学院大学生崇文诗联社受邀参加河柳',
-      '首届泰城高校文化艺术交流会举办',
-      '无情对“联”欢二十 ',
-      '甘肃政法学院大学生崇文诗联社受邀参加河柳',
-      '甘肃政法学院大学生崇文诗联社受邀参加河柳',
-      '首届泰城高校文化艺术交流会举办',
-      '无情对“联”欢二十一期',
-      '甘肃政法学院大学生崇文诗联社受邀参加河柳',
-      '甘肃政法学院大学生崇文诗联社受邀参加河柳',
-      '甘肃政法学院大学生崇文诗联社受邀参加河柳',
-      '甘肃政法学院大学生崇文诗联社受邀参加河柳'
-    ]
+
     const {params} = this.props //这个就是传入的文章catid
 
     const {param} = params
+
     //console.log(params);
     // const title = config
 
@@ -71,7 +64,12 @@ class NewsContent extends Component {
         </div>
         <div className="list-content-content">
           <ul className="news-list">
-            <NewsLink links={links} pathname={this.props.location.pathname} />
+            {
+              this.state.fetchData === true
+                ? <NewsLink links={this.state.links} pathname={this.props.location.pathname} />
+                : "Loading"
+            }
+
           </ul>
         </div>
       </div>

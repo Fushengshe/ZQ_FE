@@ -15,7 +15,7 @@ const RouterApp = () => (
         <Route path=":param/:id" components={NewsDetail} />
       </Route>
     </Route>
-<Route path="*" components={NotFound} />
+  <Route path="*" components={NotFound} />
   </Router>
 )
 

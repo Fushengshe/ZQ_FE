@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react'
 import './index.less'
 
+
+//这是侧边栏
 const SideBar = (props) => {
   // const title = config
   return (
