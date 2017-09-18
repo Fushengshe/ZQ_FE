@@ -1,6 +1,7 @@
 import React from 'react'
 import './index.less'
 import {Tooltip,Input,Form} from 'antd'
+import { Link } from 'react-router'
 import qrCode from './qr-code.jpg'
 // import {config} from './index.json'
 const FormItem = Form.Item
@@ -21,12 +22,11 @@ const TopBar = (props) => {
           style={{ width: 200 }}
           onSearch={value => console.log(value)}
         />
-        <div className="top-bar-users-entry">
-          登录/注册
-        </div>
+        <a href={'http://www.baidu.com'}>
         <div className="top-bar-users-forum">
           中青论坛
         </div>
+        </a>
       </div>
     </div>
   )
