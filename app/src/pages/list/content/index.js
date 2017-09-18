@@ -4,7 +4,7 @@ import SideBar from '../../../components/plugin/sideBar'
 import NewsLink from '../../../components/plugin/NewsLink'
 import goto from '../../../util'
 const ERR_OK = 0
-
+const EMPTY = 2
 class NewsContent extends Component {
   constructor (props) {
     super(props)
@@ -20,19 +20,23 @@ class NewsContent extends Component {
   }
 
   componentDidMount() {
-    this.fetchArticleList()
+    this.fetchArticleList(this.props.params.param)
     //console.log(this.props.params.param)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    //在修改param的时候访问了这个方法
+    this.fetchArticleList(nextProps.params.param)
+    return true
   }
 
 
 
 
+  fetchArticleList(cid) {
 
-
-  fetchArticleList() {
-
-    console.log('http://www.thmaoqiu.cn/poetry/public/index.php/showtitle?list_id='+this.props.params.param)
-    fetch('http://www.thmaoqiu.cn/poetry/public/index.php/showtitle?list_id='+this.props.params.param,{
+    console.log('http://www.thmaoqiu.cn/poetry/public/index.php/showtitle?list_id='+cid)
+    fetch('http://www.thmaoqiu.cn/poetry/public/index.php/showtitle?list_id='+cid,{
       method :'GET',
       headers : {
 
@@ -42,11 +46,16 @@ class NewsContent extends Component {
 
       if(json.code === ERR_OK) {
         this.setState({
-          cid : this.props.params.param,
+          cid : cid,
           fetchData : true,
           links : json.title
         })
-
+      } else if(json.code === EMPTY) {
+        this.setState({
+          cid : cid,
+          fetchData : false,
+          links : []
+        })
       }
     })
   }
