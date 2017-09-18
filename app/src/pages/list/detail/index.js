@@ -13,7 +13,9 @@ class NewsDetail extends Component {
     console.log(props)
     this.state = {
       fetchData : false,
-      links : []
+      links : [],
+      cate : [],
+      cate_father : []
     }
     this.fetchArticleDetail = this.fetchArticleDetail.bind(this)
   }
@@ -37,7 +39,9 @@ class NewsDetail extends Component {
       if(json.code === ERR_OK) {
         this.setState({
           fetchData : true,
-          links : json.article
+          links : json.article,
+          cate : json.cate,
+          cate_father : json.cate_father
         })
         console.log(this.state.links)
       }
@@ -51,7 +55,7 @@ class NewsDetail extends Component {
       <div>
         {
           this.state.fetchData === true
-            ? <DetailRender links={this.state.links}/>
+            ? <DetailRender links={this.state.links} cate={this.state.cate} cate_father={this.state.cate_father}/>
             : "Loading..."
         }
       </div>

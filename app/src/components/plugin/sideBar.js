@@ -11,9 +11,7 @@ const SideBar = (props) => {
       <div className="sider-bar-active">
         {props.active}
       </div>
-      <div className="sider-bar-normal">
-        {props.normal}
-      </div>
+
       <div className="sider-bar-empty" />
     </div>
   )

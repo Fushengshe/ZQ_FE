@@ -9,7 +9,7 @@ const DetailRender = (props) => {
   return (
     <div className="list-content">
       <div className="list-content-side">
-        <SideBar title={'新闻速递'} active={'诗词要闻'} normal={'联坛动态'} />
+        <SideBar title={props.cate_father.name} active={props.cate.name} normal={'联坛动态'} />
       </div>
       <div className="list-content-content">
         <h2 className="details-title">{links.title}</h2>

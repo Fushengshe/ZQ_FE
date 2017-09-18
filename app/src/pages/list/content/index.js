@@ -11,7 +11,9 @@ class NewsContent extends Component {
     this.state = {
       cid : this.props.params.param,
       fetchData : false,
-      links : []
+      links : [],
+      cat_father_info : 'Loading',
+      cat_info : 'Loading'
     }
 
     this.onHandleClick = this.onHandleClick.bind(this)
@@ -48,13 +50,20 @@ class NewsContent extends Component {
         this.setState({
           cid : cid,
           fetchData : true,
-          links : json.title
+          links : json.title,
+          cat_father_info : json.cate_father_info,
+          cat_info : json.cate_info
         })
+
+        console.log(this.state.cat_info.name)
+        console.log(this.state.cat_father_info.name);
       } else if(json.code === EMPTY) {
         this.setState({
           cid : cid,
           fetchData : false,
-          links : []
+          links : [],
+          cat_father_info : json.cate_father_info,
+          cat_info : json.cate_info
         })
       }
     })
@@ -79,8 +88,7 @@ class NewsContent extends Component {
     return (
       <div className="list-content">
         <div className="list-content-side">
-          {param === 'poem' && <SideBar title={'新闻速递'} active={'诗词要闻'} normal={'联坛动态'} />}
-          {param !== 'poem' && <SideBar title={'新闻速递'} normal={'诗词要闻'} active={'联坛动态'} />}
+         <SideBar title={ this.state.cat_father_info.name } active={ this.state.cat_info.name } normal={'联坛动态'} />
         </div>
         <div className="list-content-content">
           <ul className="news-list">
