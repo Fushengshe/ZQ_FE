@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './index.less'
 import SideBar from '../../../components/plugin/sideBar'
 import DetailRender from './detail_render'
-
+import JumpFrom from '../comment/index'
 const ERR_OK = 0
 
 class NewsDetail extends Component {
@@ -58,6 +58,7 @@ class NewsDetail extends Component {
             ? <DetailRender links={this.state.links} cate={this.state.cate} cate_father={this.state.cate_father}/>
             : "Loading..."
         }
+        <JumpFrom />
       </div>
     )
   }

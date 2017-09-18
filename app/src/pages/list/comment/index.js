@@ -6,9 +6,24 @@ import CollectionCreateForm from './form_render'
 
 const ERR_OK = 0;
 class JumpForm extends Component {
+  constructor(props) {
+    super(props)
+    console.log(props)
+  }
   state = {
     visible: false,
   };
+
+
+  componentDidMount() {
+    console.log('component loaded')
+  }
+
+  componentWillReceiveProps (nextProps) {
+    console.log('component reloaded')
+    return true;
+  }
+
 
   //提交函数
   //更健全的fetch
@@ -33,6 +48,8 @@ class JumpForm extends Component {
   }
 
 
+
+
   showModal = () => {
     this.setState({ visible: true });
   }
@@ -49,16 +66,36 @@ class JumpForm extends Component {
       this.fetchArticleDetail(values);
       console.log('Received values of form: ', values);
       form.resetFields();
+
       this.setState({ visible: false });
+      //添加完毕之后对当前组件进行重载，展示列表
     });
   }
   saveFormRef = (form) => {
     this.form = form;
   }
   render() {
+
+    const comment = [
+      '这个世界太乱了',
+      '这个世界太乱了',
+      '这个世界太乱了',
+      '这个世界太乱了'
+    ];
     return (
       <div>
-        <Button type="primary" onClick={this.showModal}>New Collection</Button>
+        <ul>
+        {
+          comment.map((item, index) => {
+            return (
+              <li key={index}>{item}</li>
+            )
+          })
+        }
+        </ul>
+
+
+        <Button type="primary" onClick={this.showModal}>添加评论</Button>
         <CollectionCreateForm
           ref={this.saveFormRef}
           visible={this.state.visible}

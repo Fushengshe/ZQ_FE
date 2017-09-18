@@ -3,6 +3,7 @@ import './index.less'
 import SideBar from '../../../components/plugin/sideBar'
 import NewsLink from '../../../components/plugin/NewsLink'
 import goto from '../../../util'
+
 const ERR_OK = 0
 const EMPTY = 2
 class NewsContent extends Component {
@@ -32,9 +33,6 @@ class NewsContent extends Component {
     return true
   }
 
-
-
-
   fetchArticleList(cid) {
 
     console.log('http://www.thmaoqiu.cn/poetry/public/index.php/showtitle?list_id='+cid)
@@ -54,9 +52,6 @@ class NewsContent extends Component {
           cat_father_info : json.cate_father_info,
           cat_info : json.cate_info
         })
-
-        console.log(this.state.cat_info.name)
-        console.log(this.state.cat_father_info.name);
       } else if(json.code === EMPTY) {
         this.setState({
           cid : cid,
