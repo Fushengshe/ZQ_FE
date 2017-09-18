@@ -23,6 +23,10 @@ class NewsDetail extends Component {
   }
 
 
+
+
+
+
   fetchArticleDetail() {
     fetch('http://www.thmaoqiu.cn/poetry/public/index.php/showart?id='+this.props.params.id,{
       method : 'GET',

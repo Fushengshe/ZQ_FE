@@ -9,12 +9,14 @@ class NewsContent extends Component {
   constructor (props) {
     super(props)
     this.state = {
+      cid : this.props.params.param,
       fetchData : false,
       links : []
     }
 
     this.onHandleClick = this.onHandleClick.bind(this)
     this.fetchArticleList = this.fetchArticleList.bind(this)
+
   }
 
   componentDidMount() {
@@ -22,7 +24,13 @@ class NewsContent extends Component {
     //console.log(this.props.params.param)
   }
 
+
+
+
+
+
   fetchArticleList() {
+
     console.log('http://www.thmaoqiu.cn/poetry/public/index.php/showtitle?list_id='+this.props.params.param)
     fetch('http://www.thmaoqiu.cn/poetry/public/index.php/showtitle?list_id='+this.props.params.param,{
       method :'GET',
@@ -34,6 +42,7 @@ class NewsContent extends Component {
 
       if(json.code === ERR_OK) {
         this.setState({
+          cid : this.props.params.param,
           fetchData : true,
           links : json.title
         })
@@ -68,7 +77,7 @@ class NewsContent extends Component {
           <ul className="news-list">
             {
               this.state.fetchData === true
-                ? <NewsLink links={this.state.links} pathname={this.props.location.pathname} />
+                ? <NewsLink  links={this.state.links} pathname={this.props.location.pathname} />
                 : "栏目下无文章"
             }
 

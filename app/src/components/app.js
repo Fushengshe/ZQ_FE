@@ -1,6 +1,3 @@
-/**
- * Created by out_xu on 17/3/16.
- */
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import Slider from './body/slider'
