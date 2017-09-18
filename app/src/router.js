@@ -13,6 +13,7 @@ const RouterApp = () => (
       <Route path="news" components={NewsList} >
         <Route path=":param" components={NewsContent} />
         <Route path=":param/:id" components={NewsDetail} />
+        <Route path="article/:id" components={NewsDetail} />
       </Route>
     </Route>
   <Route path="*" components={NotFound} />

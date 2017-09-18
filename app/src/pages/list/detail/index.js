@@ -10,7 +10,7 @@ class NewsDetail extends Component {
 
   constructor(props) {
     super(props)
-    //console.log(props)
+    console.log(props)
     this.state = {
       fetchData : false,
       links : []
@@ -24,7 +24,7 @@ class NewsDetail extends Component {
 
 
   fetchArticleDetail() {
-    fetch('http://www.thmaoqiu.cn/poetry/public/index.php/showart?id=3',{
+    fetch('http://www.thmaoqiu.cn/poetry/public/index.php/showart?id='+this.props.params.id,{
       method : 'GET',
       headers : {
 

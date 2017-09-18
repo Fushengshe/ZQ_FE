@@ -23,6 +23,7 @@ class NewsContent extends Component {
   }
 
   fetchArticleList() {
+    console.log('http://www.thmaoqiu.cn/poetry/public/index.php/showtitle?list_id='+this.props.params.param)
     fetch('http://www.thmaoqiu.cn/poetry/public/index.php/showtitle?list_id='+this.props.params.param,{
       method :'GET',
       headers : {
@@ -30,12 +31,13 @@ class NewsContent extends Component {
       }
 
     }).then((res) => res.json()).then(json => {
+
       if(json.code === ERR_OK) {
         this.setState({
           fetchData : true,
           links : json.title
         })
-        //console.log(this.state.links)
+
       }
     })
   }
@@ -53,7 +55,7 @@ class NewsContent extends Component {
 
     const {param} = params
 
-    //console.log(params);
+    console.log(this.state.links);
     // const title = config
 
     return (
@@ -67,7 +69,7 @@ class NewsContent extends Component {
             {
               this.state.fetchData === true
                 ? <NewsLink links={this.state.links} pathname={this.props.location.pathname} />
-                : "Loading"
+                : "栏目下无文章"
             }
 
           </ul>

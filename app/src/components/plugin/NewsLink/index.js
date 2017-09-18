@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router'
 const NewsLink = (props) => {
   const links = props.links
-  console.log(links);
+  //console.log(links);
 
     const linksItem = links.map((item, index) => {
       // console.log(item)

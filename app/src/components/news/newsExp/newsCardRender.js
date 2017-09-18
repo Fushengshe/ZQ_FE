@@ -12,7 +12,7 @@ const NewsCardRender = (props) => {
   const linksItem = links.map((item, index) => {
     return(
       <li className="news-card-link-item" key={index} >
-        <Link to="\active">{item.title}</Link>
+        <Link to={'/news/article/'+item.id}>{item.title}</Link>
       </li>
     )
   })

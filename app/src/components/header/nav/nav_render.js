@@ -37,10 +37,12 @@ render() {
             <SubMenu title={item.column} key={index}>
               {
                 (item.childColumn) === undefined
-                  ? <Menu.Item key={index} to="news" >下无分类</Menu.Item>
+                  ? <Menu.Item key={item.id} to="news" >下无分类</Menu.Item>
                   : item.childColumn.map((sitem,sindex) => {
                     return (
-                      <Menu.Item key={sindex} to="news" >{sitem.name}</Menu.Item>
+
+                      <Menu.Item key={'news/'+sitem.id} to="news" >{sitem.name}</Menu.Item>
+
                     )
                 })
               }
