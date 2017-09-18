@@ -6,6 +6,7 @@ import NewsContent from './pages/list/content'
 import AppComponent from './components/app'
 import NotFound from './pages/NotFound'
 import NewsDetail from './pages/list/detail/index'
+import JumpForm from './pages/list/comment/index'
 const RouterApp = () => (
   <Router history={hashHistory}>
     <Route path="/" component={AppComponent}>
@@ -15,6 +16,7 @@ const RouterApp = () => (
         <Route path=":param/:id" components={NewsDetail} />
         <Route path="article/:id" components={NewsDetail} />
       </Route>
+      <Route path="form" component={JumpForm} />
     </Route>
   <Route path="*" components={NotFound} />
   </Router>
