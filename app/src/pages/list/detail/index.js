@@ -15,7 +15,8 @@ class NewsDetail extends Component {
       fetchData : false,
       links : [],
       cate : [],
-      cate_father : []
+      cate_father : [],
+      cat_other : []
     }
     this.fetchArticleDetail = this.fetchArticleDetail.bind(this)
   }
@@ -37,11 +38,13 @@ class NewsDetail extends Component {
       }
     }).then((res) => res.json()).then(json => {
       if(json.code === ERR_OK) {
+        console.log(json.cate_other)
         this.setState({
           fetchData : true,
           links : json.article,
           cate : json.cate,
-          cate_father : json.cate_father
+          cate_father : json.cate_father,
+          cat_other : json.cate_other
         })
         console.log(this.state.links)
       }
@@ -55,7 +58,7 @@ class NewsDetail extends Component {
       <div>
         {
           this.state.fetchData === true
-            ? <DetailRender links={this.state.links} cate={this.state.cate} cate_father={this.state.cate_father}/>
+            ? <DetailRender links={this.state.links} cate={this.state.cate} cate_father={this.state.cate_father} cat_other={this.state.cat_other}/>
             : "Loading..."
         }
         <JumpFrom article={this.props.params.id}/>

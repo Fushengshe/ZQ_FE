@@ -5,11 +5,12 @@ import NewsLink from '../../../components/plugin/NewsLink'
 
 const DetailRender = (props) => {
   const links = props.links
+  const cat_other = props.cat_other
   console.log(links)
   return (
     <div className="list-content">
       <div className="list-content-side">
-        <SideBar title={props.cate_father.name} active={props.cate.name} normal={'联坛动态'} />
+        <SideBar title={props.cate_father.name} active={props.cate.name} cat_other={ props.cat_other } />
       </div>
       <div className="list-content-content">
         <h2 className="details-title">{links.title}</h2>
