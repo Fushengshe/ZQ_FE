@@ -58,7 +58,7 @@ class NewsDetail extends Component {
             ? <DetailRender links={this.state.links} cate={this.state.cate} cate_father={this.state.cate_father}/>
             : "Loading..."
         }
-        <JumpFrom />
+        <JumpFrom article={this.props.params.id}/>
       </div>
     )
   }

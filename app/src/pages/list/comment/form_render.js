@@ -18,14 +18,14 @@ const CollectionCreateForm = Form.create()(
       >
         <Form layout="vertical">
           <FormItem label="姓名">
-            {getFieldDecorator('title', {
+            {getFieldDecorator('username', {
               rules: [{ required: true, message: '请填写姓名' }],
             })(
               <Input />
             )}
           </FormItem>
           <FormItem label="评论内容">
-            {getFieldDecorator('description', {
+            {getFieldDecorator('content', {
               rules : [{ required: true, message: '请填写评论内容' }]
             })(<Input type="textarea" />)}
           </FormItem>

@@ -14,7 +14,8 @@ class NewsContent extends Component {
       fetchData : false,
       links : [],
       cat_father_info : 'Loading',
-      cat_info : 'Loading'
+      cat_info : 'Loading',
+      cat_other : []
     }
 
     this.onHandleClick = this.onHandleClick.bind(this)
@@ -35,7 +36,7 @@ class NewsContent extends Component {
 
   fetchArticleList(cid) {
 
-    console.log('http://www.thmaoqiu.cn/poetry/public/index.php/showtitle?list_id='+cid)
+
     fetch('http://www.thmaoqiu.cn/poetry/public/index.php/showtitle?list_id='+cid,{
       method :'GET',
       headers : {
@@ -43,14 +44,15 @@ class NewsContent extends Component {
       }
 
     }).then((res) => res.json()).then(json => {
-
+      //console.log(json.cat_other)
       if(json.code === ERR_OK) {
         this.setState({
           cid : cid,
           fetchData : true,
           links : json.title,
           cat_father_info : json.cate_father_info,
-          cat_info : json.cate_info
+          cat_info : json.cate_info,
+          cat_other : json.cate_other
         })
       } else if(json.code === EMPTY) {
         this.setState({
@@ -58,7 +60,8 @@ class NewsContent extends Component {
           fetchData : false,
           links : [],
           cat_father_info : json.cate_father_info,
-          cat_info : json.cate_info
+          cat_info : json.cate_info,
+          cat_other : json.cate_other
         })
       }
     })
@@ -83,7 +86,7 @@ class NewsContent extends Component {
     return (
       <div className="list-content">
         <div className="list-content-side">
-         <SideBar title={ this.state.cat_father_info.name } active={ this.state.cat_info.name } normal={'联坛动态'} />
+         <SideBar title={ this.state.cat_father_info.name } active={ this.state.cat_info.name } cat_other={ this.state.cat_other } />
         </div>
         <div className="list-content-content">
           <ul className="news-list">

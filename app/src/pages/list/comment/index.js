@@ -8,33 +8,56 @@ const ERR_OK = 0;
 class JumpForm extends Component {
   constructor(props) {
     super(props)
-    console.log(props)
+    //这里需要props继承上面的
+
+    this.fetchArticleComments = this.fetchArticleComments.bind(this)
   }
   state = {
+    fetchData : false,
+    links : [],
     visible: false,
   };
 
 
   componentDidMount() {
-    console.log('component loaded')
+    console.log(this.props)
+    this.fetchArticleComments()
   }
 
   componentWillReceiveProps (nextProps) {
-    console.log('component reloaded')
+    //console.log('component reloaded')
     return true;
   }
 
 
-  //提交函数
-  //更健全的fetch
+  fetchArticleComments () {
+
+    fetch('http://www.thmaoqiu.cn/poetry/public/index.php/showcomment/'+this.props.article,{
+      method : 'GET',
+      headers : {},
+    }).then((res) => res.json()).then(json => {
+      if(json.code === ERR_OK) {
+        console.log(json.data)
+        this.setState({
+          fetchData : true,
+          links : json.data
+        })
+      }
+    })
+  }
+
+
+
   fetchArticleDetail(data) {
-    console.log(data)
-    fetch('http://www.thmaoqiu.cn/poetry/public/index.php/testform',{
+    //对data进行预处理
+    data.article = this.props.article;
+    data.comment = 0;
+    fetch('http://www.thmaoqiu.cn/poetry/public/index.php/addcomment',{
       method : 'POST',
       headers : {
 
       },
-      body : JSON.stringify({ title : "this is title", desc : "this si " })
+      body : JSON.stringify(data)
       //使用ES6的符号函数
     }).then((res) => {
       if(res.status !== 200) {
@@ -74,21 +97,16 @@ class JumpForm extends Component {
   saveFormRef = (form) => {
     this.form = form;
   }
+
   render() {
 
-    const comment = [
-      '这个世界太乱了',
-      '这个世界太乱了',
-      '这个世界太乱了',
-      '这个世界太乱了'
-    ];
     return (
       <div>
         <ul>
         {
-          comment.map((item, index) => {
+          this.state.links.map((item, index) => {
             return (
-              <li key={index}>{item}</li>
+              <li key={index}>{item.comment}</li>
             )
           })
         }

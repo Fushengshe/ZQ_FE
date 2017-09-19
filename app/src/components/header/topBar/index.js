@@ -22,7 +22,7 @@ const TopBar = (props) => {
           style={{ width: 200 }}
           onSearch={value => console.log(value)}
         />
-        <a href={'http://www.baidu.com'}>
+        <a href={'http://www.zqslw.com'}>
         <div className="top-bar-users-forum">
           中青论坛
         </div>
