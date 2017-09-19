@@ -26,6 +26,7 @@ class JumpForm extends Component {
 
   componentWillReceiveProps (nextProps) {
     //console.log('component reloaded')
+    this.fetchArticleComments()
     return true;
   }
 
@@ -37,7 +38,7 @@ class JumpForm extends Component {
       headers : {},
     }).then((res) => res.json()).then(json => {
       if(json.code === ERR_OK) {
-        console.log(json.data)
+        //console.log(json.data)
         this.setState({
           fetchData : true,
           links : json.data
@@ -66,7 +67,7 @@ class JumpForm extends Component {
       }
       return res.json();
     }).then(json => {
-      console.log(json)
+      //console.log(json)
     })
   }
 
@@ -85,13 +86,18 @@ class JumpForm extends Component {
       if (err) {
         return;
       }
+      if(values.machine === false) {
+        return;
+      }
       //这里写fetch 代码进行提交操作
+      console.log(values);
       this.fetchArticleDetail(values);
-      console.log('Received values of form: ', values);
+      //console.log('Received values of form: ', values);
       form.resetFields();
 
       this.setState({ visible: false });
       //添加完毕之后对当前组件进行重载，展示列表
+      this.fetchArticleComments()
     });
   }
   saveFormRef = (form) => {
