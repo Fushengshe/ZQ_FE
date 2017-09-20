@@ -18,13 +18,15 @@ const TopBar = (props) => {
         </Tooltip>
       </div>
       <div className="top-bar-users">
+
+        <User />
         <Search
           placeholder=""
           style={{ width: 200 }}
           onSearch={value => console.log(value)}
         />
-        <User />
         <a href={ 'http://www.zqslw.com' }>
+
         <div className="top-bar-users-forum">
           中青论坛
         </div>

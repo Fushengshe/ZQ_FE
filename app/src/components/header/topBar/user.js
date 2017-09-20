@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react'
 import { Link } from 'react-router'
-import { Button, Input, Form, Icon } from 'antd';
+import { Button, Input, Form, Icon, message } from 'antd';
 import './index.less'
 import './user.css'
 
@@ -17,8 +17,13 @@ class User extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      token : undefined,
+      name : undefined
+    }
     this.onHandleClick = this.onHandleClick.bind(this)
     this.checkUser = this.checkUser.bind(this)
+    this.logoutHandle = this.logoutHandle.bind(this)
   }
 
 
@@ -50,8 +55,16 @@ class User extends Component {
         }).then(json => {
           //console.log(json)
           if(json.code == ERR_OK) {
-            //动态刷新组件
+            //相当于接收到token
             console.log(json)
+            localStorage.setItem('loginToken',json.token);
+            this.checkUser()
+            //接受到token之后进行动态重载
+            //console.log(document.cookie)
+          } else {
+            //显示用户名和密码错误的问题
+            message.info('用户名或者密码错误')
+            localStorage.setItem('loginToken',undefined)
           }
         })
       }
@@ -59,9 +72,14 @@ class User extends Component {
   };
 
   checkUser() {
+    console.log(localStorage.getItem('loginToken'));
+    if(localStorage.getItem('loginToken') === undefined) {
+      return;
+    }
     fetch('http://www.thmaoqiu.cn/poetry/public/index.php/user', {
-      method : "GET",
+      method : "POST",
       headers : {},
+      body : JSON.stringify({ token : localStorage.getItem('loginToken') })
     }).then((res) => {
       if(res.status !== 200) {
         console.log('请求出错');
@@ -70,8 +88,24 @@ class User extends Component {
       return res.json();
     }).then(json => {
       console.log(json)
-
+      if(json.code === ERR_OK) {
+        //进行组件重载
+        this.setState({
+          token : json.data.token,
+          name : json.data.username
+        })
+      }
     })
+  }
+
+  logoutHandle() {
+    localStorage.setItem('loginToken', undefined)
+    this.setState({
+      token : undefined,
+      name : undefined
+    })
+    message.info('退出登录成功')
+    this.checkUser()
   }
 
 
@@ -85,40 +119,47 @@ class User extends Component {
     const passwordError = isFieldTouched('password') && getFieldError('password');
     return (
       <div className="top-bar-users-forum">
+        {
+          this.state.token === undefined
+            ? <Form layout="inline" onSubmit={this.handleSubmit}>
+            <ul className="user-login">
+              <li className="user-login-item">
+                <FormItem >
+                  {getFieldDecorator('username',{
+                    rules: [{ required: true, message: '请输入用户名' }]
+                  })(
+                    <Input  prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="用户名" />
+                  )}
+                </FormItem>
+              </li>
+              <li className="user-login-item">
+                <FormItem>
+                  {getFieldDecorator('password', {
+                    rules: [{ required: true, message: '请输入密码' }]
+                  })(
+                    <Input prefix={<Icon type="barcode" style={{ fontSize: 13 }} />} type="password" placeholder="密码" />
+                  )}
+                </FormItem>
+              </li>
+              <li className="user-login-item">
+                <FormItem>
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    disabled={hasErrors(getFieldsError())}
+                  >
+                    登录
+                  </Button>
+                </FormItem>
+              </li>
+            </ul>
+          </Form>
+            : <div>
+            {"您好！"+ this.state.name}&nbsp;
+            <Button onClick={this.logoutHandle} type="danger">退出登录</Button>
+            </div>
+        }
 
-        <Form layout="inline" onSubmit={this.handleSubmit}>
-          <ul className="user-login">
-            <li className="user-login-item">
-          <FormItem >
-            {getFieldDecorator('username',{
-              rules: [{ required: true, message: '请输入用户名' }]
-            })(
-              <Input  prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="用户名" />
-            )}
-          </FormItem>
-            </li>
-            <li className="user-login-item">
-          <FormItem>
-            {getFieldDecorator('password', {
-              rules: [{ required: true, message: '请输入密码' }]
-            })(
-              <Input prefix={<Icon type="barcode" style={{ fontSize: 13 }} />} type="password" placeholder="密码" />
-            )}
-          </FormItem>
-            </li>
-            <li className="user-login-item">
-          <FormItem>
-            <Button
-              type="primary"
-              htmlType="submit"
-              disabled={hasErrors(getFieldsError())}
-            >
-              登录
-            </Button>
-          </FormItem>
-            </li>
-          </ul>
-        </Form>
 
       </div>
     )
