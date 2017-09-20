@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import JumpForm from '../../../pages/list/comment/index'
 // import {config} from './index.json'
 import pic from './pic.png'
 import bottomOne from './bottom_0.png'
@@ -9,11 +10,14 @@ import './index.less'
 class PicCard extends Component {
   constructor (props) {
     super(props)
+    //console.log(props)
     this.state = {}
   }
+  //需要文章ID才能查询文章下的评论
 
   render () {
     const props = this.props
+
     // const {title} = config
     return (
       <Card className="pic-card" title={null} style={{width:'100%'}}>
@@ -39,7 +43,9 @@ class PicCard extends Component {
         <div className="pic-card-item-large">
           <img  src={bottomZero} alt="" />
         </div>
+
       </Card>
+
     )
   }
 }

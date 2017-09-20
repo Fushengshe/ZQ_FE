@@ -3,7 +3,9 @@ import ReactDOM from 'react'
 import { Link } from 'react-router'
 import { Button, Input, Form, Icon } from 'antd';
 import './index.less'
+import './user.css'
 
+const ERR_OK = 0
 
 function hasErrors(fieldsError) {
   return Object.keys(fieldsError).some(field => fieldsError[field]);
@@ -16,10 +18,12 @@ class User extends Component {
   constructor(props) {
     super(props);
     this.onHandleClick = this.onHandleClick.bind(this)
+    this.checkUser = this.checkUser.bind(this)
   }
 
 
   componentDidMount () {
+    this.checkUser()
     //this.props.form.validateFields();
   }
 
@@ -32,9 +36,45 @@ class User extends Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
+        //提交到接口
+        fetch('http://www.thmaoqiu.cn/poetry/public/index.php/login', {
+          method : "POST",
+          headers : {},
+          body : JSON.stringify({ username : values.username, password : values.password })
+        }).then((res) => {
+          if(res.status !== 200) {
+            console.log('请求出错')
+            return;
+          }
+          return res.json()
+        }).then(json => {
+          //console.log(json)
+          if(json.code == ERR_OK) {
+            //动态刷新组件
+            console.log(json)
+          }
+        })
       }
     });
   };
+
+  checkUser() {
+    fetch('http://www.thmaoqiu.cn/poetry/public/index.php/user', {
+      method : "GET",
+      headers : {},
+    }).then((res) => {
+      if(res.status !== 200) {
+        console.log('请求出错');
+        return;
+      }
+      return res.json();
+    }).then(json => {
+      console.log(json)
+
+    })
+  }
+
+
 
 
 
@@ -45,15 +85,19 @@ class User extends Component {
     const passwordError = isFieldTouched('password') && getFieldError('password');
     return (
       <div className="top-bar-users-forum">
-        <ul>
+
         <Form layout="inline" onSubmit={this.handleSubmit}>
+          <ul className="user-login">
+            <li className="user-login-item">
           <FormItem >
             {getFieldDecorator('username',{
               rules: [{ required: true, message: '请输入用户名' }]
             })(
-              <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="用户名" />
+              <Input  prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="用户名" />
             )}
           </FormItem>
+            </li>
+            <li className="user-login-item">
           <FormItem>
             {getFieldDecorator('password', {
               rules: [{ required: true, message: '请输入密码' }]
@@ -61,6 +105,8 @@ class User extends Component {
               <Input prefix={<Icon type="barcode" style={{ fontSize: 13 }} />} type="password" placeholder="密码" />
             )}
           </FormItem>
+            </li>
+            <li className="user-login-item">
           <FormItem>
             <Button
               type="primary"
@@ -70,8 +116,10 @@ class User extends Component {
               登录
             </Button>
           </FormItem>
+            </li>
+          </ul>
         </Form>
-        </ul>
+
       </div>
     )
   }

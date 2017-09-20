@@ -10,7 +10,7 @@ class NewsDetail extends Component {
 
   constructor(props) {
     super(props)
-    console.log(props)
+    //console.log(props)
     this.state = {
       fetchData : false,
       links : [],
@@ -55,7 +55,7 @@ class NewsDetail extends Component {
   render () {
 
     return (
-      <div>
+      <div >
         {
           this.state.fetchData === true
             ? <DetailRender links={this.state.links} cate={this.state.cate} cate_father={this.state.cate_father} cat_other={this.state.cat_other}/>

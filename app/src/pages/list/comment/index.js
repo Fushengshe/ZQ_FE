@@ -3,6 +3,7 @@ import ReactDOM from 'react'
 import { Link } from 'react-router'
 import { Button, Modal, Form, Input, Radio } from 'antd';
 import CollectionCreateForm from './form_render'
+import './comment.css'
 
 const ERR_OK = 0;
 class JumpForm extends Component {
@@ -105,20 +106,9 @@ class JumpForm extends Component {
   }
 
   render() {
-
+    console.log(this.state.links)
     return (
-      <div>
-        <ul>
-        {
-          this.state.links.map((item, index) => {
-            return (
-              <li key={index}>{item.comment}</li>
-            )
-          })
-        }
-        </ul>
-
-
+      <div className="comment-list">
         <Button type="primary" onClick={this.showModal}>添加评论</Button>
         <CollectionCreateForm
           ref={this.saveFormRef}
@@ -126,6 +116,26 @@ class JumpForm extends Component {
           onCancel={this.handleCancel}
           onCreate={this.handleCreate}
         />
+        <h4>最新评论</h4>
+        <hr/>
+        <ul>
+        {
+          this.state.links.map((item, index) => {
+            return (
+              <li key={index}>
+                <div>
+                  <em>{item.user_name}</em>&nbsp;&nbsp;&nbsp;&nbsp;{item.created_at}
+                </div>
+                {item.comment}
+                <hr/>
+              </li>
+            )
+          })
+        }
+        </ul>
+
+
+
       </div>
     );
   }
