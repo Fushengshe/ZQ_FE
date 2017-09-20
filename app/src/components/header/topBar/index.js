@@ -2,6 +2,7 @@ import React from 'react'
 import './index.less'
 import {Tooltip,Input,Form} from 'antd'
 import { Link } from 'react-router'
+import User from './user'
 import qrCode from './qr-code.jpg'
 // import {config} from './index.json'
 const FormItem = Form.Item
@@ -22,6 +23,7 @@ const TopBar = (props) => {
           style={{ width: 200 }}
           onSearch={value => console.log(value)}
         />
+        <User />
         <a href={ 'http://www.zqslw.com' }>
         <div className="top-bar-users-forum">
           中青论坛
