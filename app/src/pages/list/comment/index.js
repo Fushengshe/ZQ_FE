@@ -3,7 +3,6 @@ import ReactDOM from 'react'
 import { Link } from 'react-router'
 import { Button, Modal, Form, Input, Radio } from 'antd';
 import CollectionCreateForm from './form_render'
-import './comment.css'
 
 const ERR_OK = 0;
 class JumpForm extends Component {
@@ -17,11 +16,12 @@ class JumpForm extends Component {
     fetchData : false,
     links : [],
     visible: false,
+
   };
 
 
   componentDidMount() {
-    console.log(this.props)
+    //console.log(this.props)
     this.fetchArticleComments()
   }
 
@@ -91,7 +91,7 @@ class JumpForm extends Component {
         return;
       }
       //这里写fetch 代码进行提交操作
-      console.log(values);
+      //console.log(values);
       this.fetchArticleDetail(values);
       //console.log('Received values of form: ', values);
       form.resetFields();
@@ -106,10 +106,18 @@ class JumpForm extends Component {
   }
 
   render() {
-    console.log(this.state.links)
+    //通过对localStorage 的侦测 确定是否已经登录
+    //console.log(this.state.links)
+    const loginToken = localStorage.getItem('loginToken');
+    console.log(loginToken)
     return (
       <div className="comment-list">
-        <Button type="primary" onClick={this.showModal}>添加评论</Button>
+        {
+          loginToken === "undefined"
+            ?<Button  disabled>请先登录</Button>
+            :<Button type="primary" onClick={this.showModal}>添加评论</Button>
+        }
+
         <CollectionCreateForm
           ref={this.saveFormRef}
           visible={this.state.visible}
