@@ -3,6 +3,7 @@ import ReactDOM from 'react'
 import { Link } from 'react-router'
 import { Button, Input, Form, Icon, message, Radio, Modal } from 'antd';
 import Register from './register'
+import Find from './find'
 import './index.less'
 import './user.css'
 
@@ -121,12 +122,19 @@ class User extends Component {
   showModal = () => {
     this.setState({ visible: true });
   }
+
+  showFindModal = () => {
+    this.setState({ findVisible : true });
+    //console.log(this.state.findVisible)
+  };
+
   handleCancel = () => {
     this.setState({ visible: false });
   }
   handleFindCancel = () => {
     this.setState({ findVisible: false })
   }
+
   handleCreate = () => {
     const form = this.form;
     form.validateFields((err, values) => {
@@ -236,7 +244,13 @@ class User extends Component {
                   onCreate={this.handleRegister}
                 />
 
-                <Button type="primary" className="ant-btn ant-btn-primary ant-btn-lg" onClick={this.showModal}>找回</Button>
+                <Button type="primary" className="ant-btn ant-btn-primary ant-btn-lg" onClick={this.showFindModal}>找回</Button>
+                <Find
+                  ref={this.saveFormRef}
+                  visible={this.state.findVisible}
+                  onCancel={this.handleFindCancel}
+                  onCreate={this.handleRegister}
+                />
               </li>
 
             </ul>
