@@ -251,7 +251,7 @@ class User extends Component {
                   </Button>
 
                 </FormItem>
-                <Button type="primary" className="ant-btn ant-btn-primary ant-btn-lg" onClick={this.showModal}>注册</Button>
+                <Button type="primary" className="user-item ant-btn ant-btn-primary ant-btn-lg" onClick={this.showModal}>注册</Button>
                 <Register
                   ref={this.saveFormRef}
                   visible={this.state.visible}
@@ -259,7 +259,7 @@ class User extends Component {
                   onCreate={this.handleRegister}
                 />
 
-                <Button type="primary" className="ant-btn ant-btn-primary ant-btn-lg" onClick={this.showFindModal}>找回</Button>
+                <Button type="primary" className="user-item ant-btn ant-btn-primary ant-btn-lg" onClick={this.showFindModal}>找回</Button>
                 <Find
                   ref={this.saveFormRef}
                   visible={this.state.findVisible}

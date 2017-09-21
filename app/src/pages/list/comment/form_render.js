@@ -17,13 +17,7 @@ const CollectionCreateForm = Form.create()(
         onOk={onCreate}
       >
         <Form layout="vertical">
-          <FormItem label="姓名">
-            {getFieldDecorator('username', {
-              rules: [{ required: true, message: '请填写姓名' }],
-            })(
-              <Input />
-            )}
-          </FormItem>
+
           <FormItem label="评论内容">
             {getFieldDecorator('content', {
               rules : [{ required: true, message: '请填写评论内容' }]

@@ -51,12 +51,31 @@ class JumpForm extends Component {
     //对data进行预处理
     data.article = this.props.article;
     data.comment = 0;
+    console.log(localStorage.getItem('loginToken'))
+    //根据token找到用户信息 进行上传
+    fetch('http://www.thmaoqiu.cn/poetry/public/index.php/user', {
+      method : "POST",
+      headers : {},
+      body : JSON.stringify({ token : localStorage.getItem('loginToken') })
+    }).then((res) => {
+      if(res.status !== 200) {
+        console.log('请求失败')
+        return;
+      }
+      return res.json()
+    }).then(json => {
+      if(json.code === ERR_OK) {
+        console.log(json)
+        data.username = json.data.username
+      }
+    })
+    console.log(data)
     fetch('http://www.thmaoqiu.cn/poetry/public/index.php/addcomment',{
       method : 'POST',
       headers : {
 
       },
-      body : JSON.stringify(data)
+      body : JSON.stringify({ content : data.content, article : data.article, username : data.username, comment : 0 })
       //使用ES6的符号函数
     }).then((res) => {
       if(res.status !== 200) {
@@ -65,8 +84,9 @@ class JumpForm extends Component {
       }
       return res.json();
     }).then(json => {
-      //console.log(json)
+      console.log(json)
     })
+    this.fetchArticleComments()
   }
 
   showModal = () => {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router'
 import './index.less'
 import SideBar from '../../../components/plugin/sideBar'
 import DetailRender from './detail_render'
@@ -24,11 +25,6 @@ class NewsDetail extends Component {
   componentDidMount() {
     this.fetchArticleDetail()
   }
-
-
-
-
-
 
   fetchArticleDetail() {
     fetch('http://www.thmaoqiu.cn/poetry/public/index.php/showart?id='+this.props.params.id,{

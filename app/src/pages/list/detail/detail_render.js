@@ -13,12 +13,13 @@ const DetailRender = (props) => {
         <SideBar title={props.cate_father.name} active={props.cate.name} cat_other={ props.cat_other } />
       </div>
       <div className="list-content-content">
-        <h2 className="details-title">{links.title}</h2>
+        <center><h2 className="details-title">{links.title}</h2></center>
         <div className="details-msg">
-          <span>时间:{links.created_at}</span>
-          <span>来源:{links.source}</span>
-          <span>责编:{links.author}</span>
+          <span className="details-item">时间:{links.created_at}</span><br/>
+          <span className="details-item">来源:{links.source}</span><br/>
+          <span className="details-item">责编:{links.author}</span><br/>
         </div>
+
         <div
           className="news-detail"
           dangerouslySetInnerHTML={{__html: links.content}} />

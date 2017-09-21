@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import { Link } from 'react-router'
 import './index.less'
 
 
@@ -6,10 +7,13 @@ import './index.less'
 const SideBar = (props) => {
   // const title = config
   const cat_other = props.cat_other
+  console.log(cat_other)
   const catOthers = cat_other.map((item, index) => {
     return (
-      <div className="sider-bar-normal" key={ index }>
+      <div className="sider-bar-normal-blue" key={ index }>
+        <Link to={'/news/'+item.id}>
         { item.name }
+        </Link>
       </div>
     )
   })
