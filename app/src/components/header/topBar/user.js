@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react'
 import { Link } from 'react-router'
-import { Button, Input, Form, Icon, message } from 'antd';
+import { Button, Input, Form, Icon, message, Radio, Modal } from 'antd';
+import Register from './register'
 import './index.less'
 import './user.css'
 
@@ -13,17 +14,23 @@ function hasErrors(fieldsError) {
 
 const FormItem = Form.Item;//变量替换更方便
 
+
+
+
 class User extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      visible : false,
       token : undefined,
       name : undefined
     }
     this.onHandleClick = this.onHandleClick.bind(this)
     this.checkUser = this.checkUser.bind(this)
     this.logoutHandle = this.logoutHandle.bind(this)
+    this.handleRegister = this.handleRegister.bind(this)
+
   }
 
 
@@ -109,6 +116,70 @@ class User extends Component {
   }
 
 
+  state = {
+    visible: false,
+  };
+  showModal = () => {
+    this.setState({ visible: true });
+  }
+  handleCancel = () => {
+    this.setState({ visible: false });
+  }
+  handleCreate = () => {
+    const form = this.form;
+    form.validateFields((err, values) => {
+      if (err) {
+        return;
+      }
+
+      console.log('Received values of form: ', values);
+      form.resetFields();
+      this.setState({ visible: false });
+    });
+  }
+  saveFormRef = (form) => {
+    this.form = form;
+  }
+
+  handleRegister () {
+    const form = this.form;
+    form.validateFields((err, values) => {
+      if (err) {
+        return;
+      }
+      //尝试增加一步对验证码的require
+
+      if(values.captcha === "" || values.captcha === null || values.captcha === undefined || values.captcha === "undefined") {
+        message.info('验证码不能为空');
+        return;
+      }
+
+      console.log(values);
+      //进行提交
+      fetch('http://www.thmaoqiu.cn/poetry/public/index.php/register', {
+        method : "POST",
+        headers : {},
+        body : JSON.stringify({ username : values.username, password : values.password, email : values.email, captcha : values.captcha })
+      }).then((res) => {
+        if(res.status !== 200) {
+          console.log('请求出错');
+          return;
+        }
+        return res.json()
+      }).then(json => {
+        if(json.code === ERR_OK) {
+          message.info('注册账户成功，请重新登录')
+        }
+      })
+      form.resetFields();
+      this.setState({ visible: false });
+    });
+  }
+
+
+
+
+
 
 
 
@@ -150,7 +221,17 @@ class User extends Component {
                   >
                     登录
                   </Button>
+
                 </FormItem>
+                <Button type="primary" className="ant-btn ant-btn-primary ant-btn-lg" onClick={this.showModal}>注册</Button>
+                <Register
+                  ref={this.saveFormRef}
+                  visible={this.state.visible}
+                  onCancel={this.handleCancel}
+                  onCreate={this.handleRegister}
+                />
+
+
               </li>
             </ul>
           </Form>

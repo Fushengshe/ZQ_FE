@@ -47,9 +47,6 @@ class JumpForm extends Component {
       }
     })
   }
-
-
-
   fetchArticleDetail(data) {
     //对data进行预处理
     data.article = this.props.article;
@@ -71,9 +68,6 @@ class JumpForm extends Component {
       //console.log(json)
     })
   }
-
-
-
 
   showModal = () => {
     this.setState({ visible: true });
@@ -113,7 +107,7 @@ class JumpForm extends Component {
     return (
       <div className="comment-list">
         {
-          loginToken === "undefined"
+          loginToken === "undefined" || null
             ?<Button  disabled>请先登录</Button>
             :<Button type="primary" onClick={this.showModal}>添加评论</Button>
         }
