@@ -50,7 +50,6 @@ class User extends Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
         //提交到接口
         fetch('http://www.thmaoqiu.cn/poetry/public/index.php/login', {
           method : "POST",
@@ -66,7 +65,6 @@ class User extends Component {
           //console.log(json)
           if(json.code == ERR_OK) {
             //相当于接收到token
-            console.log(json)
             localStorage.setItem('loginToken',json.token);
             this.checkUser()
             //接受到token之后进行动态重载
@@ -82,7 +80,6 @@ class User extends Component {
   };
 
   checkUser() {
-    console.log(localStorage.getItem('loginToken'));
     if(localStorage.getItem('loginToken') === undefined) {
       return;
     }
@@ -97,7 +94,6 @@ class User extends Component {
       }
       return res.json();
     }).then(json => {
-      console.log(json)
       if(json.code === ERR_OK) {
         //进行组件重载
         this.setState({
@@ -117,9 +113,6 @@ class User extends Component {
     message.info('退出登录成功')
     this.checkUser()
   }
-
-
-
   showModal = () => {
     this.setState({ visible: true });
   }
@@ -142,8 +135,6 @@ class User extends Component {
       if (err) {
         return;
       }
-
-      console.log('Received values of form: ', values);
       form.resetFields();
       this.setState({ visible: false });
     });
@@ -167,8 +158,6 @@ class User extends Component {
         message.info('验证码不能为空');
         return;
       }
-
-      console.log(values);
       //进行提交
       fetch('http://www.thmaoqiu.cn/poetry/public/index.php/register', {
         method : "POST",
@@ -221,13 +210,6 @@ class User extends Component {
 
     })
   }
-
-
-
-
-
-
-
 
   render() {
     const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
@@ -293,14 +275,9 @@ class User extends Component {
             <Button onClick={this.logoutHandle} type="danger">退出登录</Button>
             </div>
         }
-
-
       </div>
     )
   }
 }
 User = Form.create()(User);
-
-
-
 export default User

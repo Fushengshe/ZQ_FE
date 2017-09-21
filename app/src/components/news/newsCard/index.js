@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-// import {config} from './index.json'
 import { Card } from 'antd'
 import { Link } from 'react-router'
 import pic1 from './pic1.gif'
@@ -42,7 +41,6 @@ class NewsCard extends Component {
           links : json.data.data,
           fetchData : true
         })
-        //console.log(this.state.first)
       }
     })
   }
@@ -50,19 +48,10 @@ class NewsCard extends Component {
   componentDidMount() {
     this.fetchSiteMov()
   }
-
-
-
-
-
   render () {
-
     return (
       <Card className="news-card" title='本站动态' style={{width: '45%'}}>
-
-
           <NewsCardRender links={this.state.links} first={this.state.first} />
-
       </Card>
 
     )

@@ -36,10 +36,6 @@ class Slider extends Component {
       }
     })
   }
-
-
-
-
   render() {
     return (
       <div>
@@ -48,7 +44,6 @@ class Slider extends Component {
             ? <SliderRender links={this.state.links}/>
             : "loading"
         }
-
       </div>
     )
   }

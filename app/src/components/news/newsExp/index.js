@@ -42,7 +42,6 @@ class NewsExpCard extends Component {
           links : json.data.data,
           fetchData : true
         })
-        //console.log(this.state.first)
       }
     })
   }
@@ -51,18 +50,11 @@ class NewsExpCard extends Component {
     this.fetchSiteMov()
   }
 
-
-
-
-
   render () {
 
     return (
       <Card className="news-card" title='新闻速递' style={{width: '45%'}}>
-
-
           <NewsCardRender links={this.state.links} first={this.state.first}/>
-
       </Card>
 
     )

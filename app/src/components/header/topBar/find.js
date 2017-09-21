@@ -16,8 +16,6 @@ class Find extends Component {
       captchaDisabled : false,
     };
     this.handleCaptcha = this.handleCaptcha.bind(this);
-
-    //this.checkIsCaptcha = this.checkIsCaptcha.bind(this)
   }
 
   checkPassword = (rule, value, callback) => {
@@ -29,17 +27,12 @@ class Find extends Component {
     }
   }
 
-
-
-
-
   handleCaptcha() { //获得恢密码的验证码
     const form = this.props.form;
     form.validateFields((err, values) => {
       if(err) {
         return;
       }
-      console.log(values)
       fetch('http://www.thmaoqiu.cn/poetry/public/index.php/forgot/email', {
         method : "POST",
         headers : {},
@@ -52,7 +45,6 @@ class Find extends Component {
         }
         return res.json()
       }).then(json => {
-        console.log(json)
         if(json.code === ERR_OK) {
           message.info('发送验证码成功，请邮箱查收')
           this.setState({

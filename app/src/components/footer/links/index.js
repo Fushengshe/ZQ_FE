@@ -3,7 +3,6 @@ import BottomPic from './bottom_logo.png'
 import './index.less'
 
 const links = (props) => {
-  // const title = config
   return (
     <div className="links">
       <div className="links-item">

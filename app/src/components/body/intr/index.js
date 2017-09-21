@@ -3,8 +3,6 @@ import { Card } from 'antd'
 import './index.less'
 import pics from './pics.png'
 
-// import Slider from './slider'
-
 class Intr extends Component {
   constructor (props) {
     super(props)

@@ -38,7 +38,7 @@ class Register extends Component {
       if(err) {
         return;
       }
-      console.log(values)
+
       fetch('http://www.thmaoqiu.cn/poetry/public/index.php/email', {
         method : "POST",
         headers : {},
@@ -51,7 +51,7 @@ class Register extends Component {
         }
         return res.json()
       }).then(json => {
-        console.log(json)
+
         if(json.code === ERR_OK) {
           message.info('发送验证码成功，请邮箱查收')
           this.setState({

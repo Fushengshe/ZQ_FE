@@ -8,7 +8,6 @@ import pic2 from './pic2.jpg'
 const NewsCardRender = (props) => {
   const links = props.links
   const first = props.first
-  console.log(first)
   const linksItem = links.map((item, index) => {
     return(
       <li className="news-card-link-item" key={index} >

@@ -4,11 +4,11 @@ import {Tooltip,Input,Form} from 'antd'
 import { Link } from 'react-router'
 import User from './user'
 import qrCode from './qr-code.jpg'
-// import {config} from './index.json'
+
 const FormItem = Form.Item
 const Search = Input.Search
 const TopBar = (props) => {
-  // const title = config
+
   return (
     <div className="top-bar">
       <div className="top-bar-connect">
@@ -18,11 +18,8 @@ const TopBar = (props) => {
         </Tooltip>
       </div>
       <div className="top-bar-users">
-
         <User />
-
         <a href={ 'http://www.zqslw.com' }>
-
         <div className="top-bar-users-forum">
           中青论坛
         </div>

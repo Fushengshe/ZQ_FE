@@ -5,7 +5,6 @@ const ERR_OK = 0
 
 const SliderRender = (props) => {
   const links = props.links
-  //console.log(links);
   const linksItem = links.map((item, index) => {
     return(
       <div key={index}><img src={item.url} alt={item.id}/></div>
