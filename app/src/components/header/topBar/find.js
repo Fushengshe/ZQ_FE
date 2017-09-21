@@ -33,17 +33,17 @@ class Find extends Component {
 
 
 
-  handleCaptcha() { //获得验证码
+  handleCaptcha() { //获得恢密码的验证码
     const form = this.props.form;
     form.validateFields((err, values) => {
       if(err) {
         return;
       }
       console.log(values)
-      fetch('http://www.thmaoqiu.cn/poetry/public/index.php/email', {
+      fetch('http://www.thmaoqiu.cn/poetry/public/index.php/forgot/email', {
         method : "POST",
         headers : {},
-        body : JSON.stringify({ email : values.email })
+        body : JSON.stringify({ email : values.email, username : values.username })
       }).then((res) => {
         if(res.status !== 200) {
           message.info('发送验证码失败，请重试')
@@ -58,6 +58,8 @@ class Find extends Component {
           this.setState({
             captchaDisabled: true,
           })
+        } else {
+          message.info('发送验证码失败，请重试')
         }
       })
     })

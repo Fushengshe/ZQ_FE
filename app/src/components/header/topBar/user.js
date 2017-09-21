@@ -32,6 +32,7 @@ class User extends Component {
     this.checkUser = this.checkUser.bind(this)
     this.logoutHandle = this.logoutHandle.bind(this)
     this.handleRegister = this.handleRegister.bind(this)
+    this.handleFind = this.handleFind.bind(this)
 
   }
 
@@ -189,6 +190,38 @@ class User extends Component {
     });
   }
 
+  handleFind() {
+    const form = this.form
+    form.validateFields((err, values) => {
+      if(err) {
+        return;
+      }
+      if(values.captcha === "" || values.captcha === null || values.captcha === undefined || values.captcha === "undefined") {
+        message.info('验证码不能为空');
+        return;
+      }
+
+      fetch('http://www.thmaoqiu.cn/poetry/public/index.php/forgot/password', {
+        method : "POST",
+        headers : {},
+        body : JSON.stringify({ username : values.username, email : values.email, captcha : values.captcha, new_password : values.new_password })
+      }).then((res) => {
+        if(res.status !== 200) {
+          console.log('请求失败')
+          return;
+        }
+        return res.json()
+      }).then((json) => {
+          if(json.code === ERR_OK) {
+            message.info('修改密码成功请重新登录')
+          } else {
+            message.info('修改密码失败请重试')
+          }
+      })
+
+    })
+  }
+
 
 
 
@@ -249,7 +282,7 @@ class User extends Component {
                   ref={this.saveFormRef}
                   visible={this.state.findVisible}
                   onCancel={this.handleFindCancel}
-                  onCreate={this.handleRegister}
+                  onCreate={this.handleFind}
                 />
               </li>
 
