@@ -23,6 +23,7 @@ class User extends Component {
     super(props);
     this.state = {
       visible : false,
+      findVisible : false,
       token : undefined,
       name : undefined
     }
@@ -116,14 +117,15 @@ class User extends Component {
   }
 
 
-  state = {
-    visible: false,
-  };
+
   showModal = () => {
     this.setState({ visible: true });
   }
   handleCancel = () => {
     this.setState({ visible: false });
+  }
+  handleFindCancel = () => {
+    this.setState({ findVisible: false })
   }
   handleCreate = () => {
     const form = this.form;
@@ -140,6 +142,9 @@ class User extends Component {
   saveFormRef = (form) => {
     this.form = form;
   }
+
+
+
 
   handleRegister () {
     const form = this.form;
@@ -231,8 +236,9 @@ class User extends Component {
                   onCreate={this.handleRegister}
                 />
 
-
+                <Button type="primary" className="ant-btn ant-btn-primary ant-btn-lg" onClick={this.showModal}>找回</Button>
               </li>
+
             </ul>
           </Form>
             : <div>

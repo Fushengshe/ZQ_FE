@@ -20,11 +20,7 @@ const TopBar = (props) => {
       <div className="top-bar-users">
 
         <User />
-        <Search
-          placeholder=""
-          style={{ width: 200 }}
-          onSearch={value => console.log(value)}
-        />
+
         <a href={ 'http://www.zqslw.com' }>
 
         <div className="top-bar-users-forum">
