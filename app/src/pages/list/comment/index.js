@@ -16,7 +16,8 @@ class JumpForm extends Component {
     fetchData : false,
     links : [],
     visible: false,
-
+    isLogged : false,
+    username : undefined,
   };
 
 
@@ -33,6 +34,37 @@ class JumpForm extends Component {
 
 
   fetchArticleComments () {
+    //先对用户token进行验证
+    //console.log('ss'+localStorage.getItem('loginToken'))
+    //console.log(11)
+    if(typeof(localStorage.getItem('loginToken')) === 'undefined') {
+      console.log('无token')
+      return;
+    }
+    fetch('http://www.thmaoqiu.cn/poetry/public/index.php/user', {
+      method : "POST",
+      headers : {},
+      body : JSON.stringify({ token : localStorage.getItem('loginToken') })
+    }).then((res) => {
+      if(res.status !== 200) {
+        console.log('请求出错');
+        return;
+      }
+      return res.json();
+    }).then(json => {
+      //console.log(json)
+      if(json.code !== ERR_OK) {
+        //进行组件重载
+        this.setState({
+          isLogged: false,
+        })
+      } else {
+        this.setState({
+          isLogged: true,
+          username : json.data.username
+        })
+      }
+    })
 
     fetch('http://www.thmaoqiu.cn/poetry/public/index.php/showcomment/'+this.props.article,{
       method : 'GET',
@@ -53,29 +85,14 @@ class JumpForm extends Component {
     data.comment = 0;
     console.log(localStorage.getItem('loginToken'))
     //根据token找到用户信息 进行上传
-    fetch('http://www.thmaoqiu.cn/poetry/public/index.php/user', {
-      method : "POST",
-      headers : {},
-      body : JSON.stringify({ token : localStorage.getItem('loginToken') })
-    }).then((res) => {
-      if(res.status !== 200) {
-        console.log('请求失败')
-        return;
-      }
-      return res.json()
-    }).then(json => {
-      if(json.code === ERR_OK) {
-        console.log(json)
-        data.username = json.data.username
-      }
-    })
+
     console.log(data)
     fetch('http://www.thmaoqiu.cn/poetry/public/index.php/addcomment',{
       method : 'POST',
       headers : {
 
       },
-      body : JSON.stringify({ content : data.content, article : data.article, username : data.username, comment : 0 })
+      body : JSON.stringify({ content : data.content, article : data.article, username : this.state.username, comment : 0 })
       //使用ES6的符号函数
     }).then((res) => {
       if(res.status !== 200) {
@@ -104,8 +121,9 @@ class JumpForm extends Component {
       if(values.machine === false) {
         return;
       }
+
       //这里写fetch 代码进行提交操作
-      //console.log(values);
+
       this.fetchArticleDetail(values);
       //console.log('Received values of form: ', values);
       form.resetFields();
@@ -115,6 +133,8 @@ class JumpForm extends Component {
       this.fetchArticleComments()
     });
   }
+
+
   saveFormRef = (form) => {
     this.form = form;
   }
@@ -123,13 +143,13 @@ class JumpForm extends Component {
     //通过对localStorage 的侦测 确定是否已经登录
     //console.log(this.state.links)
     const loginToken = localStorage.getItem('loginToken');
-    console.log(loginToken)
+    console.log(loginToken) //是有logintoken的
     return (
       <div className="comment-list">
         {
-          loginToken === "undefined" || null
-            ?<Button  disabled>请先登录</Button>
-            :<Button type="primary" onClick={this.showModal}>添加评论</Button>
+          this.state.isLogged
+            ?<Button type="primary" onClick={this.showModal}>添加评论</Button>
+            :<Button  disabled>请先登录</Button>
         }
 
         <CollectionCreateForm

@@ -22,6 +22,7 @@ class User extends Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
       visible : false,
       findVisible : false,
@@ -80,7 +81,10 @@ class User extends Component {
   };
 
   checkUser() {
-    if(localStorage.getItem('loginToken') === undefined) {
+    console.log('ss'+localStorage.getItem('loginToken'))
+    //console.log(11)
+    if(typeof(localStorage.getItem('loginToken')) === 'undefined') {
+      console.log('无token')
       return;
     }
     fetch('http://www.thmaoqiu.cn/poetry/public/index.php/user', {
@@ -94,12 +98,14 @@ class User extends Component {
       }
       return res.json();
     }).then(json => {
+      //console.log(json)
       if(json.code === ERR_OK) {
         //进行组件重载
         this.setState({
           token : json.data.token,
           name : json.data.username
         })
+
       }
     })
   }
