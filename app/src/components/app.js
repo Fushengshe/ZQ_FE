@@ -19,10 +19,10 @@ class AppComponent extends Component {
             {this.props.children}
           </div>
           <div className="rside">
-            <PicCard />
+            <PicCard params={this.props} />
           </div>
         </div>
-        <div><Links /></div>
+        <div><hr/><Links /></div>
         <div className="footer">
           <span>版权所有©中国青年诗词楹联网
          </span>
