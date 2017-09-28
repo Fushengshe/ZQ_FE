@@ -41,6 +41,7 @@ class NewsCard extends Component {
           links : json.data.data,
           fetchData : true
         })
+        console.log(this.state.links)
       }
     })
   }

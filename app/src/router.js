@@ -16,7 +16,6 @@ const RouterApp = () => (
       <Route path="news" components={NewsList} >
         <Route path=":param" components={NewsContent} />
         <Route path=":param/:id" components={NewsDetail} />
-        <Route path="article/:id" components={NewsDetail} />
       </Route>
       <Route path="form" component={JumpForm} />
       <Route path="find" component={FindPage} />
