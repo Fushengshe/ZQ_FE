@@ -257,21 +257,12 @@ class User extends Component {
                   </Button>
 
                 </FormItem>
-                <Button type="primary" className="user-item ant-btn ant-btn-primary ant-btn-lg" onClick={this.showModal}>注册</Button>
-                <Register
-                  ref={this.saveFormRef}
-                  visible={this.state.visible}
-                  onCancel={this.handleCancel}
-                  onCreate={this.handleRegister}
-                />
-
+                <Link to="/reg">
+                <Button type="primary" className="user-item ant-btn ant-btn-primary ant-btn-lg">注册</Button>
+                </Link>
+                <Link to="/find">
                 <Button type="primary" className="user-item ant-btn ant-btn-primary ant-btn-lg" onClick={this.showFindModal}>找回</Button>
-                <Find
-                  ref={this.saveFormRef}
-                  visible={this.state.findVisible}
-                  onCancel={this.handleFindCancel}
-                  onCreate={this.handleFind}
-                />
+                </Link>
               </li>
 
             </ul>

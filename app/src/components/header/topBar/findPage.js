@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router'
-import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
+import { Link, hashHistory } from 'react-router'
+import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete, message } from 'antd';
+import './reg.css';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -44,6 +45,28 @@ class FindPage extends Component {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
+        if(typeof (values.captcha) === 'undefined' || values.captcha === null || values.captcha === undefined) {
+          message.error('请输入验证码');
+          return;
+        }
+        fetch('http://www.thmaoqiu.cn/poetry/public/index.php/forgot/password', {
+          method : "POST",
+          headers : {},
+          body : JSON.stringify({ username : values.username, email : values.email, captcha : values.captcha, new_password : values.new_password })
+        }).then((res) => {
+          if(res.status !== 200) {
+            console.log('请求失败')
+            return;
+          }
+          return res.json()
+        }).then((json) => {
+          if(json.code === ERR_OK) {
+            message.info('修改密码成功请重新登录')
+            hashHistory.push('/');
+          } else {
+            message.info('修改密码失败请重试')
+          }
+        })
       }
     });
   }
@@ -53,8 +76,8 @@ class FindPage extends Component {
   }
   checkPassword = (rule, value, callback) => {
     const form = this.props.form;
-    if (value && value !== form.getFieldValue('password')) {
-      callback('Two passwords that you enter is inconsistent!');
+    if (value && value !== form.getFieldValue('new_password')) {
+      callback('两个密码不一致');
     } else {
       callback();
     }
@@ -65,6 +88,37 @@ class FindPage extends Component {
       form.validateFields(['confirm'], { force: true });
     }
     callback();
+  }
+
+  handleCaptcha = (e) => {
+    console.log(1)
+    e.preventDefault();
+    this.props.form.validateFieldsAndScroll((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
+        fetch('http://www.thmaoqiu.cn/poetry/public/index.php/forgot/email', {
+          method : "POST",
+          headers : {},
+          body : JSON.stringify({ email : values.email, username : values.username })
+        }).then((res) => {
+          if(res.status !== 200) {
+            message.info('发送验证码失败，请重试')
+            console.log('请求出错');
+            return;
+          }
+          return res.json()
+        }).then(json => {
+          if(json.code === ERR_OK) {
+            message.info('发送验证码成功，请邮箱查收')
+            this.setState({
+              captchaDisabled: true,
+            })
+          } else {
+            message.info('发送验证码失败，请重试')
+          }
+        })
+      }
+    });
   }
 
   handleWebsiteChange = (value) => {
@@ -118,16 +172,15 @@ class FindPage extends Component {
 
     return (
       <Form onSubmit={this.handleSubmit}>
+        <h1 className="reg-item-title">密码找回</h1>
         <FormItem
           {...formItemLayout}
-          label="E-mail"
+          label="用户名"
           hasFeedback
         >
-          {getFieldDecorator('email', {
+          {getFieldDecorator('username', {
             rules: [{
-              type: 'email', message: 'The input is not valid E-mail!',
-            }, {
-              required: true, message: 'Please input your E-mail!',
+              required: true, message: '请输入用户名',
             }],
           })(
             <Input />
@@ -135,10 +188,25 @@ class FindPage extends Component {
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label="Password"
+          label="注册时的邮箱"
           hasFeedback
         >
-          {getFieldDecorator('password', {
+          {getFieldDecorator('email', {
+            rules: [{
+              type: 'email', message: '请输入正确的邮箱',
+            }, {
+              required: true, message: '请输入注册时的邮箱',
+            }],
+          })(
+            <Input />
+          )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="新密码"
+          hasFeedback
+        >
+          {getFieldDecorator('new_password', {
             rules: [{
               required: true, message: 'Please input your password!',
             }, {
@@ -150,10 +218,10 @@ class FindPage extends Component {
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label="Confirm Password"
+          label="重复密码"
           hasFeedback
         >
-          {getFieldDecorator('confirm', {
+          {getFieldDecorator('repass', {
             rules: [{
               required: true, message: 'Please confirm your password!',
             }, {
@@ -163,86 +231,28 @@ class FindPage extends Component {
             <Input type="password" onBlur={this.handleConfirmBlur} />
           )}
         </FormItem>
+
+
+
         <FormItem
           {...formItemLayout}
-          label={(
-            <span>
-              Nickname&nbsp;
-              <Tooltip title="What do you want other to call you?">
-                <Icon type="question-circle-o" />
-              </Tooltip>
-            </span>
-          )}
-          hasFeedback
-        >
-          {getFieldDecorator('nickname', {
-            rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
-          })(
-            <Input />
-          )}
-        </FormItem>
-        <FormItem
-          {...formItemLayout}
-          label="Habitual Residence"
-        >
-          {getFieldDecorator('residence', {
-            initialValue: ['zhejiang', 'hangzhou', 'xihu'],
-            rules: [{ type: 'array', required: true, message: 'Please select your habitual residence!' }],
-          })(
-            <Cascader options={residences} />
-          )}
-        </FormItem>
-        <FormItem
-          {...formItemLayout}
-          label="Phone Number"
-        >
-          {getFieldDecorator('phone', {
-            rules: [{ required: true, message: 'Please input your phone number!' }],
-          })(
-            <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
-          )}
-        </FormItem>
-        <FormItem
-          {...formItemLayout}
-          label="Website"
-        >
-          {getFieldDecorator('website', {
-            rules: [{ required: true, message: 'Please input website!' }],
-          })(
-            <AutoComplete
-              dataSource={websiteOptions}
-              onChange={this.handleWebsiteChange}
-              placeholder="website"
-            >
-              <Input />
-            </AutoComplete>
-          )}
-        </FormItem>
-        <FormItem
-          {...formItemLayout}
-          label="Captcha"
-          extra="We must make sure that your are a human."
+          label="邮箱验证码"
+          extra="确定你不是机器人"
         >
           <Row gutter={8}>
             <Col span={12}>
               {getFieldDecorator('captcha', {
-                rules: [{ required: true, message: 'Please input the captcha you got!' }],
+                rules: [],
               })(
                 <Input size="large" />
               )}
             </Col>
             <Col span={12}>
-              <Button size="large">Get captcha</Button>
+              <Button size="large" onClick={this.handleCaptcha}>获得验证码</Button>
             </Col>
           </Row>
         </FormItem>
-        <FormItem {...tailFormItemLayout} style={{ marginBottom: 8 }}>
-          {getFieldDecorator('agreement', {
-            valuePropName: 'checked',
-          })(
-            <Checkbox>I have read the <a href="">agreement</a></Checkbox>
-          )}
-        </FormItem>
+
         <FormItem {...tailFormItemLayout}>
           <Button type="primary" htmlType="submit">Find</Button>
         </FormItem>

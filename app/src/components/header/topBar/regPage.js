@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router'
-import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
+import { Link, browserHistory, hashHistory } from 'react-router'
+import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete, message } from 'antd';
+import './reg.css';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -35,6 +36,7 @@ const residences = [{
 class RegPage extends Component {
 
 
+
   state = {
     confirmDirty: false,
     autoCompleteResult: [],
@@ -44,6 +46,29 @@ class RegPage extends Component {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
+        //通过message进行提示输入验证码
+        if(typeof (values.captcha) === 'undefined' || values.captcha === null || values.captcha === undefined) {
+          message.error('请输入验证码');
+          return;
+        }
+        //进行注册
+        fetch('http://www.thmaoqiu.cn/poetry/public/index.php/register', {
+          method : "POST",
+          headers : {},
+          body : JSON.stringify({ username : values.username, password : values.password, email : values.email, captcha : values.captcha })
+        }).then((res) => {
+          if(res.status !== 200) {
+            console.log('请求出错');
+            return;
+          }
+          return res.json()
+        }).then(json => {
+          if(json.code === ERR_OK) {
+            message.info('注册账户成功，请重新登录')
+            //进行页面跳转
+            hashHistory.push('/');
+          }
+        })
       }
     });
   }
@@ -75,6 +100,39 @@ class RegPage extends Component {
       autoCompleteResult = ['.com', '.org', '.net'].map(domain => `${value}${domain}`);
     }
     this.setState({ autoCompleteResult });
+  }
+
+  handleCaptcha = (e) => {
+    //先对表单进行验证
+    console.log(1);
+    e.preventDefault();
+    this.props.form.validateFieldsAndScroll((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
+        //验证通过之后请求验证码
+        fetch('http://www.thmaoqiu.cn/poetry/public/index.php/email', {
+          method : "POST",
+          headers : {},
+          body : JSON.stringify({ email : values.email })
+        }).then((res) => {
+          if(res.status !== 200) {
+            message.info('发送验证码失败，请重试')
+            console.log('请求出错');
+            return;
+          }
+          return res.json()
+        }).then(json => {
+
+          if(json.code === ERR_OK) {
+            message.info('发送验证码成功，请邮箱查收')
+            this.setState({
+              captchaDisabled: true,
+            })
+          }
+        })
+
+      }
+    });
   }
 
   render() {
@@ -118,6 +176,20 @@ class RegPage extends Component {
 
     return (
       <Form onSubmit={this.handleSubmit}>
+        <h1 className="reg-item-title">用户注册</h1>
+        <FormItem
+          {...formItemLayout}
+          label="用户名"
+          hasFeedback
+        >
+          {getFieldDecorator('username', {
+            rules: [{
+              required: true, message: '请输入您的用户名',
+            }],
+          })(
+            <Input />
+          )}
+        </FormItem>
         <FormItem
           {...formItemLayout}
           label="E-mail"
@@ -135,12 +207,12 @@ class RegPage extends Component {
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label="Password"
+          label="密码"
           hasFeedback
         >
           {getFieldDecorator('password', {
             rules: [{
-              required: true, message: 'Please input your password!',
+              required: true, message: '请输入密码',
             }, {
               validator: this.checkConfirm,
             }],
@@ -150,12 +222,12 @@ class RegPage extends Component {
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label="Confirm Password"
+          label="重复密码"
           hasFeedback
         >
           {getFieldDecorator('confirm', {
             rules: [{
-              required: true, message: 'Please confirm your password!',
+              required: true, message: '请输入重复密码',
             }, {
               validator: this.checkPassword,
             }],
@@ -165,84 +237,23 @@ class RegPage extends Component {
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label={(
-            <span>
-              Nickname&nbsp;
-              <Tooltip title="What do you want other to call you?">
-                <Icon type="question-circle-o" />
-              </Tooltip>
-            </span>
-          )}
-          hasFeedback
-        >
-          {getFieldDecorator('nickname', {
-            rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
-          })(
-            <Input />
-          )}
-        </FormItem>
-        <FormItem
-          {...formItemLayout}
-          label="Habitual Residence"
-        >
-          {getFieldDecorator('residence', {
-            initialValue: ['zhejiang', 'hangzhou', 'xihu'],
-            rules: [{ type: 'array', required: true, message: 'Please select your habitual residence!' }],
-          })(
-            <Cascader options={residences} />
-          )}
-        </FormItem>
-        <FormItem
-          {...formItemLayout}
-          label="Phone Number"
-        >
-          {getFieldDecorator('phone', {
-            rules: [{ required: true, message: 'Please input your phone number!' }],
-          })(
-            <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
-          )}
-        </FormItem>
-        <FormItem
-          {...formItemLayout}
-          label="Website"
-        >
-          {getFieldDecorator('website', {
-            rules: [{ required: true, message: 'Please input website!' }],
-          })(
-            <AutoComplete
-              dataSource={websiteOptions}
-              onChange={this.handleWebsiteChange}
-              placeholder="website"
-            >
-              <Input />
-            </AutoComplete>
-          )}
-        </FormItem>
-        <FormItem
-          {...formItemLayout}
-          label="Captcha"
-          extra="We must make sure that your are a human."
+          label="邮箱验证码"
+          extra="用于非机器人验证."
         >
           <Row gutter={8}>
             <Col span={12}>
               {getFieldDecorator('captcha', {
-                rules: [{ required: true, message: 'Please input the captcha you got!' }],
+                rules: [],
               })(
                 <Input size="large" />
               )}
             </Col>
             <Col span={12}>
-              <Button size="large">Get captcha</Button>
+              <Button size="large" onClick={this.handleCaptcha}>获取验证码</Button>
             </Col>
           </Row>
         </FormItem>
-        <FormItem {...tailFormItemLayout} style={{ marginBottom: 8 }}>
-          {getFieldDecorator('agreement', {
-            valuePropName: 'checked',
-          })(
-            <Checkbox>I have read the <a href="">agreement</a></Checkbox>
-          )}
-        </FormItem>
+
         <FormItem {...tailFormItemLayout}>
           <Button type="primary" htmlType="submit">Register</Button>
         </FormItem>
