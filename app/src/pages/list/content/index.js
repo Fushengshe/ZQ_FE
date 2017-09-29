@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './index.less'
-import SideBar from '../../../components/plugin/sideBar'
+//import SideBar from '../../../components/plugin/sideBar'
+import SideBar from '../../../components/plugin/SideBar/index'
 import NewsLink from '../../../components/plugin/NewsLink'
 import goto from '../../../util'
 
@@ -17,6 +18,8 @@ class NewsContent extends Component {
       cat_info : 'Loading',
       cat_other : []
     }
+
+    console.log(this.state.cid)
 
     this.onHandleClick = this.onHandleClick.bind(this)
     this.fetchArticleList = this.fetchArticleList.bind(this)
@@ -80,13 +83,14 @@ class NewsContent extends Component {
 
     const {param} = params
 
-    console.log(this.state.links);
+    console.log(this.state.cid);
+
     // const title = config
 
     return (
       <div className="list-content">
         <div className="list-content-side">
-         <SideBar title={ this.state.cat_father_info.name } active={ this.state.cat_info.name } cat_other={ this.state.cat_other } />
+          <SideBar cate={ this.state.cid }/>
         </div>
         <div className="list-content-content">
           <ul className="news-list">
