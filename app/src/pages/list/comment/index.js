@@ -3,6 +3,7 @@ import ReactDOM from 'react'
 import { Link } from 'react-router'
 import { Button, Modal, Form, Input, Radio } from 'antd';
 import CollectionCreateForm from './form_render'
+import API from '../../../../api'
 import './comment.css';
 
 const ERR_OK = 0;
@@ -42,7 +43,7 @@ class JumpForm extends Component {
       console.log('无token')
       return;
     }
-    fetch('http://www.thmaoqiu.cn/poetry/public/index.php/user', {
+    fetch(API()+'/user', {
       method : "POST",
       headers : {},
       body : JSON.stringify({ token : localStorage.getItem('loginToken') })
@@ -67,7 +68,7 @@ class JumpForm extends Component {
       }
     })
 
-    fetch('http://www.thmaoqiu.cn/poetry/public/index.php/showcomment/'+this.props.article,{
+    fetch(API()+'/showcomment/'+this.props.article,{
       method : 'GET',
       headers : {},
     }).then((res) => res.json()).then(json => {
@@ -88,7 +89,7 @@ class JumpForm extends Component {
     //根据token找到用户信息 进行上传
 
     console.log(data)
-    fetch('http://www.thmaoqiu.cn/poetry/public/index.php/addcomment',{
+    fetch(API()+'/addcomment',{
       method : 'POST',
       headers : {
 

@@ -6,6 +6,7 @@ import pic1 from './pic1.gif'
 import pic2 from './pic2.jpg'
 import './index.less'
 import NewsCardRender from './newsCardRender'
+import API from '../../../../api'
 
 
 const ERR_OK = 0;
@@ -30,7 +31,7 @@ class NewsExpCard extends Component {
   }
 
   fetchSiteMov () {
-    fetch('http://www.thmaoqiu.cn/poetry/public/index.php/newsexp',{
+    fetch(API()+'/newsexp',{
       method : 'GET',
       headers : {
 

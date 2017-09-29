@@ -5,6 +5,7 @@ import NavRender from './nav_render'
 const ERR_OK = 0
 const SubMenu = Menu.SubMenu
 import goto from '../../../util'
+import API from '../../../../api'
 
 class Nav extends Component {
   constructor(props) {
@@ -22,7 +23,7 @@ class Nav extends Component {
   }
 
   fetchNavList () {
-    fetch('http://www.thmaoqiu.cn/poetry/public/index.php/showlists',{
+    fetch(API()+'/showlists',{
       method : 'GET',
       headers : {
       }

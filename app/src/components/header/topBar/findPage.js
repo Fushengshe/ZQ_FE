@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link, hashHistory } from 'react-router'
 import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete, message } from 'antd';
 import './reg.css';
+import API from '../../../../api'
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -49,7 +50,7 @@ class FindPage extends Component {
           message.error('请输入验证码');
           return;
         }
-        fetch('http://www.thmaoqiu.cn/poetry/public/index.php/forgot/password', {
+        fetch(API()+'/forgot/password', {
           method : "POST",
           headers : {},
           body : JSON.stringify({ username : values.username, email : values.email, captcha : values.captcha, new_password : values.new_password })
@@ -96,7 +97,7 @@ class FindPage extends Component {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
-        fetch('http://www.thmaoqiu.cn/poetry/public/index.php/forgot/email', {
+        fetch(API()+'/forgot/email', {
           method : "POST",
           headers : {},
           body : JSON.stringify({ email : values.email, username : values.username })

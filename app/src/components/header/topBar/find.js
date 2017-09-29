@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import { Button, Input, Form, Icon, message, Radio, Modal } from 'antd';
+import API from '../../../../api'
 
 const ERR_OK = 0
 const FormItem = Form.Item;//变量替换更方便
@@ -33,7 +34,7 @@ class Find extends Component {
       if(err) {
         return;
       }
-      fetch('http://www.thmaoqiu.cn/poetry/public/index.php/forgot/email', {
+      fetch(API()+'/forgot/email', {
         method : "POST",
         headers : {},
         body : JSON.stringify({ email : values.email, username : values.username })

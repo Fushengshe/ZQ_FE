@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 import './index.less'
 import DetailRender from './detail_render'
+import API from '../../../../api'
+
 const ERR_OK = 0
 
 class NewsDetail extends Component {
@@ -25,7 +27,7 @@ class NewsDetail extends Component {
   }
 
   fetchArticleDetail() {
-    fetch('http://www.thmaoqiu.cn/poetry/public/index.php/showart?id='+this.props.params.id,{
+    fetch(API()+'/showart?id='+this.props.params.id,{
       method : 'GET',
       headers : {}
     }).then((res) => res.json()).then(json => {

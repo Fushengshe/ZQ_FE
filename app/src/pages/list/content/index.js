@@ -4,6 +4,7 @@ import './index.less'
 import SideBar from '../../../components/plugin/SideBar/index'
 import NewsLink from '../../../components/plugin/NewsLink'
 import goto from '../../../util'
+import API from '../../../../api'
 
 const ERR_OK = 0
 const EMPTY = 2
@@ -40,7 +41,7 @@ class NewsContent extends Component {
   fetchArticleList(cid) {
 
 
-    fetch('http://www.thmaoqiu.cn/poetry/public/index.php/showtitle?list_id='+cid,{
+    fetch(API()+'/showtitle?list_id='+cid,{
       method :'GET',
       headers : {
 

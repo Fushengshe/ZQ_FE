@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Carousel} from 'antd'
 import SliderRender from '../slider_render/index'
+import API from  '../../../../api.js';
 
 import './index.less'
 const ERR_OK = 0
@@ -20,7 +21,7 @@ class Slider extends Component {
   }
 
   fetchSliderList () {
-    fetch('http://www.thmaoqiu.cn/poetry/public/index.php/carousel/show',{
+    fetch(API()+'/carousel/show',{
       method : 'GET',
       headers : {
 

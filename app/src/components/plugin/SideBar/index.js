@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import './index.less'
+import API from '../../../../api'
 
 const ERR_OK = 0;
 
@@ -31,7 +32,7 @@ class SideBar extends Component {
   //根据分类找到分类列表
   FetchCateList() {
     const cid = this.props.cate
-    fetch('http://www.thmaoqiu.cn/poetry/public/index.php/breadfather/'+cid, {
+    fetch(API()+'/breadfather/'+cid, {
       header : {},
       method : "GET"
     }).then((res) => {
@@ -47,7 +48,7 @@ class SideBar extends Component {
         })
       }
     });
-    fetch('http://www.thmaoqiu.cn/poetry/public/index.php/bread/'+cid, {
+    fetch(API()+'/bread/'+cid, {
       header : {},
       method : "GET"
     }).then((res) => {

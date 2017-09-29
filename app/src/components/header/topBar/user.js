@@ -4,6 +4,7 @@ import { Link } from 'react-router'
 import { Button, Input, Form, Icon, message, Radio, Modal } from 'antd';
 import Register from './register'
 import Find from './find'
+import API from '../../../../api'
 import './index.less'
 import './user.css'
 
@@ -52,7 +53,7 @@ class User extends Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         //提交到接口
-        fetch('http://www.thmaoqiu.cn/poetry/public/index.php/login', {
+        fetch(API()+'/login', {
           method : "POST",
           headers : {},
           body : JSON.stringify({ username : values.username, password : values.password })
@@ -87,7 +88,7 @@ class User extends Component {
       console.log('无token')
       return;
     }
-    fetch('http://www.thmaoqiu.cn/poetry/public/index.php/user', {
+    fetch(API()+'/user', {
       method : "POST",
       headers : {},
       body : JSON.stringify({ token : localStorage.getItem('loginToken') })
@@ -165,7 +166,7 @@ class User extends Component {
         return;
       }
       //进行提交
-      fetch('http://www.thmaoqiu.cn/poetry/public/index.php/register', {
+      fetch(API()+'/register', {
         method : "POST",
         headers : {},
         body : JSON.stringify({ username : values.username, password : values.password, email : values.email, captcha : values.captcha })
@@ -196,7 +197,7 @@ class User extends Component {
         return;
       }
 
-      fetch('http://www.thmaoqiu.cn/poetry/public/index.php/forgot/password', {
+      fetch(API()+'/forgot/password', {
         method : "POST",
         headers : {},
         body : JSON.stringify({ username : values.username, email : values.email, captcha : values.captcha, new_password : values.new_password })

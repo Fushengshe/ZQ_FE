@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link, browserHistory, hashHistory } from 'react-router'
 import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete, message } from 'antd';
 import './reg.css';
+import API from '../../../../api'
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -52,7 +53,7 @@ class RegPage extends Component {
           return;
         }
         //进行注册
-        fetch('http://www.thmaoqiu.cn/poetry/public/index.php/register', {
+        fetch(API()+'/register', {
           method : "POST",
           headers : {},
           body : JSON.stringify({ username : values.username, password : values.password, email : values.email, captcha : values.captcha })
@@ -110,7 +111,7 @@ class RegPage extends Component {
       if (!err) {
         console.log('Received values of form: ', values);
         //验证通过之后请求验证码
-        fetch('http://www.thmaoqiu.cn/poetry/public/index.php/email', {
+        fetch(API()+'/email', {
           method : "POST",
           headers : {},
           body : JSON.stringify({ email : values.email })
