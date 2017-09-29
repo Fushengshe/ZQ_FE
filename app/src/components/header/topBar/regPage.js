@@ -177,6 +177,7 @@ class RegPage extends Component {
     return (
       <Form onSubmit={this.handleSubmit}>
         <h1 className="reg-item-title">用户注册</h1>
+
         <FormItem
           {...formItemLayout}
           label="用户名"
@@ -255,8 +256,12 @@ class RegPage extends Component {
         </FormItem>
 
         <FormItem {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit">Register</Button>
+          <Button type="primary" htmlType="submit">注册账号</Button>
+          <Link to="/find" className="find-password">
+            找回账号
+          </Link>
         </FormItem>
+
       </Form>
     );
   }

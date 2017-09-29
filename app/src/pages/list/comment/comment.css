@@ -1,5 +1,4 @@
-.comment-list {
-    float:right;
-    position: relative;
-    margin-right: -180px;
+.comment-list-ul {
+    overflow-y: scroll;
+    height: 200px;
 }

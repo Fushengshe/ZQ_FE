@@ -258,11 +258,9 @@ class User extends Component {
 
                 </FormItem>
                 <Link to="/reg">
-                <Button type="primary" className="user-item ant-btn ant-btn-primary ant-btn-lg">注册</Button>
+                  <Button type="primary" className="user-item ant-btn ant-btn-primary ant-btn-lg">注册</Button>
                 </Link>
-                <Link to="/find">
-                <Button type="primary" className="user-item ant-btn ant-btn-primary ant-btn-lg" onClick={this.showFindModal}>找回</Button>
-                </Link>
+
               </li>
 
             </ul>

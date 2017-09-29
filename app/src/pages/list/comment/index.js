@@ -3,6 +3,7 @@ import ReactDOM from 'react'
 import { Link } from 'react-router'
 import { Button, Modal, Form, Input, Radio } from 'antd';
 import CollectionCreateForm from './form_render'
+import './comment.css';
 
 const ERR_OK = 0;
 class JumpForm extends Component {
@@ -160,7 +161,7 @@ class JumpForm extends Component {
         />
         <h4>最新评论</h4>
         <hr/>
-        <ul>
+        <ul className="comment-list-ul">
         {
           this.state.links.map((item, index) => {
             return (

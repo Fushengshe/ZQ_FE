@@ -254,7 +254,7 @@ class FindPage extends Component {
         </FormItem>
 
         <FormItem {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit">Find</Button>
+          <Button type="primary" htmlType="submit">找回密码</Button>
         </FormItem>
       </Form>
     );
