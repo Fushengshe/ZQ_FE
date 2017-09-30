@@ -6,6 +6,7 @@ const ERR_OK = 0
 const SubMenu = Menu.SubMenu
 import goto from '../../../util'
 import API from '../../../../api'
+import Loading from './loading'
 
 class Nav extends Component {
   constructor(props) {
@@ -46,7 +47,7 @@ class Nav extends Component {
         {
           this.state.fetchData === true
             ?<NavRender links={this.state.links}/>
-            :"loading"
+            :<Loading/>
         }
 
       </div>

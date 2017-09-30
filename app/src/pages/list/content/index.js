@@ -85,14 +85,14 @@ class NewsContent extends Component {
 
     const {param} = params
 
-    console.log(this.state.cid);
-
+    //console.log(this.state.cid);
+    console.log('param is'+param)
     // const title = config
 
     return (
       <div className="list-content">
         <div className="list-content-side">
-          <SideBar cate={ this.state.cid }/>
+          <SideBar cate={ param }/>
         </div>
         <div className="list-content-content">
           <ul className="news-list">

@@ -6,8 +6,7 @@ const Loading = () => {
 
 
   return(
-    <div className="slider-loading">
-
+    <div className="nav-loading">
     </div>
   );
 };

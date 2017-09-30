@@ -72,15 +72,15 @@ class SideBar extends Component {
 
 
   render () {
+
+
     const linksItem = this.state.links.map((item, index) => {
-
-      if(item.id === this.props.cate) {
+      console.log('receive'+this.props.cate)
+      if(item.id === parseInt(this.props.cate)) {
         return (
-
           <div className="sider-bar-active" key={ index }>
-          {item.name}
+            {item.name}
           </div>
-
         );
       } else {
         return (<div className="sider-bar-normal-blue" key={ index }>
