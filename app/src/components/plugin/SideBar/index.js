@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import './index.less'
 import API from '../../../../api'
+import Loading from './loading'
 
 const ERR_OK = 0;
 

@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {Carousel} from 'antd'
+import Loading from './loading'
 import SliderRender from '../slider_render/index'
 import API from  '../../../../api.js';
 
@@ -14,6 +15,10 @@ class Slider extends Component {
       links : [],
     }
     this.fetchSliderList = this.fetchSliderList.bind(this)
+  }
+
+  componentWillMount () {
+
   }
 
   componentDidMount () {
@@ -43,7 +48,7 @@ class Slider extends Component {
         {
           this.state.fetchData === true
             ? <SliderRender links={this.state.links}/>
-            : "loading"
+            : <Loading/>
         }
       </div>
     )

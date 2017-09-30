@@ -5,6 +5,7 @@ import SideBar from '../../../components/plugin/SideBar/index'
 import NewsLink from '../../../components/plugin/NewsLink'
 import goto from '../../../util'
 import API from '../../../../api'
+import Loading from './loading'
 
 const ERR_OK = 0
 const EMPTY = 2
@@ -98,7 +99,7 @@ class NewsContent extends Component {
             {
               this.state.fetchData === true
                 ? <NewsLink  links={this.state.links} pathname={this.props.location.pathname} />
-                : "栏目下无文章"
+                : "分类下无文章"
             }
 
           </ul>

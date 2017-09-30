@@ -9,6 +9,20 @@ import Links from './footer/links'
 import './app.less'
 
 class AppComponent extends Component {
+
+  constructor(props) {
+    super(props)
+
+  }
+
+  componentWillMount() {
+    console.log(1)
+  }
+
+  componentDidMount() {
+
+  }
+
   render () {
     return (
       <div className="App">
