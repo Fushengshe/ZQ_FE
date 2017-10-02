@@ -5,6 +5,10 @@ import JumpForm from '../../../pages/list/comment/index'
 import pic from './pic.png'
 import bottomOne from './bottom_0.png'
 import bottomZero from './bottom_1.png'
+import Anhuishifan from './anhuishifan.jpg'
+import Donghualigong from './donghualigong.jpg'
+import Gansuzhengfa from './gansuzhengfa.jpg'
+import Dongqin from './dongqin.jpg'
 import { Card } from 'antd'
 
 import './index.less'
@@ -30,26 +34,30 @@ class PicCard extends Component {
       <div>
       <Card className="pic-card" title={null} style={{width:'100%'}}>
         <div className="pic-card-item">
-          <img src={pic} alt="" />
-          <div className="pic-card-item-desc">杨帆</div>
+          <img src={Dongqin} alt="" />
+          <div className="pic-card-item-desc">东秦诗词楹联学社</div>
         </div>
         <div className="pic-card-item">
-          <img src={pic} alt="" />
-          <div className="pic-card-item-desc">杨帆</div>
+          <img src={Gansuzhengfa} alt="" />
+          <div className="pic-card-item-desc">甘肃政法崇文诗联</div>
         </div>
         <div className="pic-card-item">
-          <img src={pic} alt="" />
-          <div className="pic-card-item-desc">杨帆</div>
+          <img src={Donghualigong} alt="" />
+          <div className="pic-card-item-desc">东华理工秋云诗社</div>
         </div>
         <div className="pic-card-item">
-          <img  src={pic} alt="" />
-          <div className="pic-card-item-desc">杨帆</div>
+          <img  src={Anhuishifan} alt="" />
+          <div className="pic-card-item-desc">安徽师范江南诗社</div>
         </div>
         <div className="pic-card-item-large">
+          <a href="http://www.chinaysc.cn">
           <img  src={bottomOne} alt="" />
+          </a>
         </div>
         <div className="pic-card-item-large">
+          <a href="http://s.lapsang.cn">
           <img  src={bottomZero} alt="" />
+          </a>
         </div>
       </Card>
         {

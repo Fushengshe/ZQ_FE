@@ -19,11 +19,6 @@ const TopBar = (props) => {
       </div>
       <div className="top-bar-users">
         <User />
-        <a href={ 'http://www.zqslw.com' }>
-        <div className="top-bar-users-forum">
-          中青论坛
-        </div>
-        </a>
       </div>
     </div>
   )

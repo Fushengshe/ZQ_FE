@@ -22,7 +22,8 @@ const DetailRender = (props) => {
         </div>
         <div className="list-content-side">
         </div>
-        <br/>
+        <br/><br/><br/>
+
         <div
           className="news-detail"
           dangerouslySetInnerHTML={{__html: links.content}} />

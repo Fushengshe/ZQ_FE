@@ -52,7 +52,7 @@ class NewsCard extends Component {
   }
   render () {
     return (
-      <Card className="news-card" title='本站动态' style={{width: '45%'}}>
+      <Card className="news-card" title='本站动态' style={{width: '48%'}}>
           <NewsCardRender links={this.state.links} first={this.state.first} />
       </Card>
 

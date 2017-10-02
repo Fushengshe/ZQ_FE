@@ -54,7 +54,7 @@ class NewsExpCard extends Component {
   render () {
 
     return (
-      <Card className="news-card" title='新闻速递' style={{width: '45%'}}>
+      <Card className="news-card" title='新闻速递' style={{width: '48%'}}>
           <NewsCardRender links={this.state.links} first={this.state.first}/>
       </Card>
 
