@@ -7,17 +7,17 @@ const SliderRender = (props) => {
   const links = props.links
   const linksItem = links.map((item, index) => {
     return(
-      <div key={index}><Link to={'/news/'+item.list_id+'/'+item.art_id}><img src={item.url} alt={item.id}/></Link></div>
+      <div key={index}><Link to={'/news/'+item.list_id+'/'+item.art_id}><img src={item.url} alt={item.id}/></Link><h3><div className="slider-text">{ item.art_title }</div></h3></div>
     )
   })
 
   return (
 
       <div className="slider">
-        <Carousel autoplay>
+        <Carousel autoplay vertical>
           {linksItem}
         </Carousel>
-        <div className="slider-text">中 国 青 年 诗 词 楹 联 网 欢 迎 您</div>
+
       </div>
 
   )

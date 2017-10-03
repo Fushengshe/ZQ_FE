@@ -3,6 +3,7 @@ import { Card } from 'antd'
 import { Link } from 'react-router'
 import pic1 from './pic1.gif'
 import pic2 from './pic2.jpg'
+
 import API from '../../../../api'
 import './index.less'
 import NewsCardRender from './newsCardRender'

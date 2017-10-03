@@ -34,20 +34,28 @@ class PicCard extends Component {
       <div>
       <Card className="pic-card" title={null} style={{width:'100%'}}>
         <div className="pic-card-item">
+          <Link to="/news/22/15">
           <img src={Dongqin} alt="" />
           <div className="pic-card-item-desc">东秦诗词楹联学社</div>
+          </Link>
         </div>
         <div className="pic-card-item">
+          <Link to="/news/22/10">
           <img src={Gansuzhengfa} alt="" />
           <div className="pic-card-item-desc">甘肃政法崇文诗联</div>
+          </Link>
         </div>
         <div className="pic-card-item">
+          <Link to="/news/22/9">
           <img src={Donghualigong} alt="" />
           <div className="pic-card-item-desc">东华理工秋云诗社</div>
+          </Link>
         </div>
         <div className="pic-card-item">
+          <Link to="/news/22/10">
           <img  src={Anhuishifan} alt="" />
           <div className="pic-card-item-desc">安徽师范江南诗社</div>
+          </Link>
         </div>
         <div className="pic-card-item-large">
           <a href="http://www.chinaysc.cn">
