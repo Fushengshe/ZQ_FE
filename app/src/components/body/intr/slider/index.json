@@ -1,0 +1,11 @@
+{
+  "config": {
+    "title": "this is the title"
+  },
+  "urls":{
+    "sliderOne":"./slider1.png",
+    "sliderTwo":"./slider2.png",
+    "sliderThree":"./slider3.png",
+    "sliderFour":"./slider4.png"
+  }
+}

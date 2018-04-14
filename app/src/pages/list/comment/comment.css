@@ -1,0 +1,4 @@
+.comment-list-ul {
+    overflow-y: scroll;
+    height: 200px;
+}

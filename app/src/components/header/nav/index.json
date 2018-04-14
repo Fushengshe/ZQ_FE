@@ -1,0 +1,16 @@
+{
+  "config": {
+    "title": "this is the title",
+    "news":{
+      "poem":"",
+      "active":""
+    },
+    "poem":{
+      "bigView":"",
+      "newVoice":"",
+      "good":"",
+      "famous":""
+    },
+    "coplet":""
+  }
+}

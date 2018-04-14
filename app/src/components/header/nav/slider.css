@@ -1,0 +1,5 @@
+.nav-loading {
+    height: 20px;
+    background-color: #c2c3c4;
+    filter:blur(20px);
+}
